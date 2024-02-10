@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "65c3803f9c01b80541176789"
+  },
+  "daty": "2024-02-08",
+  "horaire": "16:05",
+  "description": "rendez vous",
+  "employee_id": "65c0c87e5f93a76eed5562c5",
+  "service_id": "65c31bbb807aeeb8ae5a5a96",
+  "client_id": "65c11c95e8d542bcfc527d33",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65c38a979c01b8054117678b"
+  },
+  "daty": "2024-02-08",
+  "horaire": "21:05",
+  "description": "rendez vous 2 ",
+  "employee_id": "65c0c87e5f93a76eed5562c7",
+  "service_id": "65c31bbb807aeeb8ae5a5a9a",
+  "client_id": "65c11c95e8d542bcfc527d33",
+  "__v": 0
+}]

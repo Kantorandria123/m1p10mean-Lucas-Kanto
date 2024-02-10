@@ -1,0 +1,38 @@
+[
+    {
+      "nom": "Jean Dupont",
+      "image": "employe1.png",
+      "horaireTravail": "9h-17h"
+    },
+    {
+      "id": 2,
+      "nom": "Marie Martin",
+      "image": "employe2.png",
+      "horaireTravail": "10h-18h"
+    },
+    {
+      "nom": "Pierre Lefevre",
+      "image": "employe3.png",
+      "horaireTravail": "8h-16h"
+    },
+    {
+      "nom": "Sophie Lambert",
+      "image": "employe4.png",
+      "horaireTravail": "11h-19h"
+    },
+    {
+      "nom": "Antoine Robert",
+      "image": "employe5.png",
+      "horaireTravail": "7h-15h"
+    },
+    {
+      "nom": "Sarah Jhonson",
+      "email": "sarah@gmail.com",
+      "mdp": "516fab1e1dc21dadb528796f384ef77a839c58c218d0cb1357807a2c01bddb2cedad68fde5a5d2b868e2006e6ca3b5e2rUWbzVQcSaGpTz6KqndDHA==",
+      "image": "employe6.png",
+      "horaireTravail": "10h-18h",
+      "role_id":"65c66e88f9b17b1837b428d4",
+      "token": ""
+    }
+  ]
+  

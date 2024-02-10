@@ -1,0 +1,83 @@
+[
+    {
+        "nom": "Coupe de cheveux",
+        "description": "Une coupe de cheveux pour rafraîchir votre style.",
+        "prix": 30.0,
+        "duree": 45,
+        "commission": 5.0,
+        "image": "service1.jpg"
+    },
+    {
+        "nom": "Manucure",
+        "description": "Prenez soin de vos ongles avec une manucure professionnelle.",
+        "prix": 20.0,
+        "duree": 30,
+        "commission": 2.0,
+        "image": "service2.jpg"
+    },
+    {
+        "nom": "Pédicure",
+        "description": "Détendez-vous avec une pédicure relaxante pour vos pieds.",
+        "prix": 25.0,
+        "duree": 40,
+        "commission": 3.0,
+        "image": "service3.jpg"
+    },
+    {
+        "nom": "Épilation",
+        "description": "Une épilation professionnelle pour une peau douce et lisse.",
+        "prix": 40.0,
+        "duree": 60,
+        "commission": 8.0,
+        "image": "service4.jpg"
+    },
+    {
+        "nom": "Soin du visage",
+        "description": "Offrez à votre visage un soin revitalisant pour une peau éclatante.",
+        "prix": 50.0,
+        "duree": 75,
+        "commission": 10.0,
+        "image": "service5.jpg"
+    },
+    {
+        "nom": "Massage relaxant",
+        "description": "Détendez-vous avec un massage relaxant pour apaiser vos tensions.",
+        "prix": 60.0,
+        "duree": 90,
+        "commission": 15.0,
+        "image": "service6.jpg"
+    },
+    {
+        "nom": "Coloration des cheveux",
+        "description": "Donnez de la couleur à vos cheveux pour un look audacieux et vibrant.",
+        "prix": 70.0,
+        "duree": 120,
+        "commission": 20.0,
+        "image": "service7.jpg"
+    },
+    {
+        "nom": "Extension de cils",
+        "description": "Obtenez des cils longs et volumineux avec des extensions professionnelles.",
+        "prix": 80.0,
+        "duree": 60,
+        "commission": 8.0,
+        "image": "service8.jpg"
+    },
+    {
+        "nom": "Coiffure de mariage",
+        "description": "Sublimez votre look pour le jour de votre mariage avec une coiffure élégante.",
+        "prix": 120.0,
+        "duree": 180,
+        "commission": 30.0,
+        "image": "service9.jpg"
+    },
+    {
+        "nom": "Maquillage professionnel",
+        "description": "Laissez un professionnel mettre en valeur votre beauté avec un maquillage impeccable.",
+        "prix": 40.0,
+        "duree": 60,
+        "commission": 5.0,
+        "image": "service10.jpg"
+    }
+  ]
+  

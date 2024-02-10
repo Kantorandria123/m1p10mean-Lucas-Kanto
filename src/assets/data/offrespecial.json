@@ -1,0 +1,30 @@
+[
+    {
+        "titre": "Offre spéciale pour soin des cheuveux",
+        "description": "Promo spéciale sur les soins pour cheveux secs / déshydratés / abîmées chez Beauty Care",
+        "datedebut": "2024-01-01",
+        "datefin": "2024-01-30",
+        "service_id":1
+    },
+    {
+        "titre": "Offre spéciale pour soin de visage",
+        "description": "Venez vous faire chouchouter avec un mini soin visage relaxant et découvrir nos univers.",
+        "datedebut": "2024-02-18",
+        "datefin": "2024-03-25",
+        "service_id":5
+    },
+    {
+        "titre": "Offre spéciale pour un massage relaxant",
+        "description": "1h de Massage Relaxant.Profitez d'un moment de Bien-Etre au Beauty Care",
+        "datedebut": "2024-02-01",
+        "datefin": "2024-02-29",
+        "service_id":6
+    },
+    {
+        "titre": "Offre spéciale pour manucure",
+        "description": "Rendez-vous au Beauty Care, seulement pour bénéficier d'une offre spéciale manucure !",
+        "datedebut": "2024-02-15",
+        "datefin": "2024-03-20",
+        "service_id":2
+    }
+]
