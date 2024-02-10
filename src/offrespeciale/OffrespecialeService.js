@@ -16,7 +16,7 @@ const getListOffrespecial = async () => {
     const offrespecialList = await OffrespecialeModel.aggregate([
       {
         $addFields: {
-          service_id: { $toObjectId: "65c31bbb807aeeb8ae5a5a96" }
+          service_id: { $toObjectId: "$service_id" }
         }
       },
       {
