@@ -14,53 +14,18 @@ const getlisteEmployeControlleur = async (req, res) => {
   }
 };
 
-var createEmployeeControllerFn = async (req, res) => 
-{
-    try
-    {
-    console.log(req.body);
-    var status = await employeService.createEmployeeDBService(req.body);
-    console.log(status);
-
-    if (status) {
-        res.send({ "status": true, "message": "Employee created successfully" });
+const loginEmployeeControllerFn = async (req, res) => {
+  try{
+    const result = await employeService.loginEmployeeDBService(req.body);
+    if (result.status) {
+      res.send({"status": true, "message": result.message, "employes": result.employes});
     } else {
-        res.send({ "status": false, "message": "Error creating Employeeuser" });
+      res.send({"status": false, "message": result.message});
     }
-}
-catch(err)
-{
-    console.log(err);
-}
-}
-
-var loginEmployeeControllerFn = async (req, res) => {
-  try {
-      const result = await employeService.loginEmployeeDBService(req.body);
-      if (result.status) {
-          res.send({ "status": true, "message": result.message, "employee": result.employee });
-      } else {
-          res.send({ "status": false, "message": result.message });
-      }
   } catch (error) {
-      console.error(error);
-      res.send({ "status": false, "message": error.message });
+    console.error(error);
+    res.send({ "status": false, "message": error.message });
   }
 }
 
-var getEmployeeByTokenControlleur = async (req, res) => {
-  try {
-      const result = await employeService.getEmployeeByToken(req.body);
-      if (result.status) {
-          res.send({ "status": true, "message": result.message, "employee": result.employee });
-      } else {
-          res.send({ "status": false, "message": result.message });
-      }
-  } catch (error) {
-      console.error(error);
-      res.send({ "status": false, "message": error.message });
-  }
-}
-
-
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,getEmployeeByTokenControlleur,createEmployeeControllerFn };
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn};

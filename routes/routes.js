@@ -17,15 +17,13 @@ router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 
 /*role*/ 
-router.route('/role/lesroles').get(roleControlleur.getlisteRoleControlleur);
+router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
 
 /*employe*/ 
 router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeControlleur);
-router.route('/employe/create').post(employeControlleur.createEmployeeControllerFn);
-router.route('/employe/getbytoken').post(employeControlleur.getEmployeeByTokenControlleur);
 router.route('/employe/login').post(employeControlleur.loginEmployeeControllerFn);
 
 /*rendezvous*/ 
