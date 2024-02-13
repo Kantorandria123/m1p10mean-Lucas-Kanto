@@ -58,4 +58,21 @@ const employeeByIdControllerFn = async (req, res) => {
   }
 }
 
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn};
+const updateEmployeeByIdControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    const newData = req.body; // Supposons que les nouvelles données sont envoyées dans le corps de la requête
+
+    const result = await employeService.updateEmployeeById(employeeId, newData);
+    if (result.status) {
+      res.send({ status: true, message: result.message, updatedEmployee: result.updatedEmployee });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'employé par ID" });
+  }
+};
+
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn};

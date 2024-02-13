@@ -26,6 +26,7 @@ router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeContr
 router.route('/employe/login').post(employeControlleur.loginEmployeeControllerFn);
 router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenControlleur);
 router.route('/employe/employebyId/:employeeId').get(employeControlleur.employeeByIdControllerFn);
+router.route('/employe/employeupdate/:employeeId').patch(employeControlleur.updateEmployeeByIdControllerFn);
 
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);

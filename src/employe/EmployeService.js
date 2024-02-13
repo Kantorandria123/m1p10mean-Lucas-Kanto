@@ -87,6 +87,20 @@ const getEmployeeById = async (employeeId) => {
   }
 };
 
+const updateEmployeeById = async (employeeId, updateData) => {
+  try {
+    const updatedEmployee = await employeModel.findByIdAndUpdate(employeeId, updateData, { new: true });
+    if (!updatedEmployee) {
+      return { status: false, message: "Aucun employé trouvé avec cet identifiant pour la mise à jour" };
+    }
+    return { status: true, message: "Employé mis à jour avec succès", updatedEmployee };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour de l'employé" };
+  }
+};
+
+
 
 function getCurrentDateTime() {
   const currentDateTime = new Date();
@@ -98,5 +112,5 @@ function getCurrentDateTime() {
 
  
 module.exports = {
-  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById
+  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById,updateEmployeeById
 };
