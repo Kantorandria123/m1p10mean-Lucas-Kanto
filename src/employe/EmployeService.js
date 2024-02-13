@@ -55,6 +55,25 @@ const loginEmployeeDBService = (employeeDetails) => {
   });
 }
 
+const getEmployeeByToken = (employeeDetails) => {
+  return new Promise((resolve, reject) => {
+    employeModel.findOne({ email: employeeDetails.email,token: employeeDetails.token})
+      .then(result => {
+        console.log("email: " +employeeDetails.email);
+        console.log("token: " +employeeDetails.token);
+        console.log("result" +result);
+        resolve({
+          status: true,
+          message: "Employée trouver!",
+          employes: result
+        });
+      })
+      .catch(error => {
+        reject({status: false, message: "Données invalides"});
+      });
+  });
+}
+
 function getCurrentDateTime() {
   const currentDateTime = new Date();
   const date = currentDateTime.toISOString().split('T')[0];
@@ -65,5 +84,5 @@ function getCurrentDateTime() {
 
  
 module.exports = {
-  getListEmploye,loginEmployeeDBService
+  getListEmploye,loginEmployeeDBService,getEmployeeByToken
 };

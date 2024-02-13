@@ -28,4 +28,18 @@ const loginEmployeeControllerFn = async (req, res) => {
   }
 }
 
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn};
+const employeeByTokenControlleur = async (req, res) => {
+  try {
+    const result = await employeService.getEmployeeByToken(req.body);
+    if (result.status) {
+      res.send({"status": true, "message": result.message, "employes": result.employes});
+    } else {
+      res.send({"status": false, "message": result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send({"status": false, "message": error.message});
+  }
+}
+
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur};
