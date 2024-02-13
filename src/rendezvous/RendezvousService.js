@@ -239,7 +239,26 @@ const listeRendezvousByEmployee = async (employeeId) => {
   }
 };
 
+const updateEtatRendezVousById = async (id, newEtat) => {
+  try {
+    const newEtatInt=parseInt(newEtat);
+    const updatedRendezvous = await RendezvousModel.findByIdAndUpdate(
+      id,
+      { $set: { etat: newEtatInt } },
+      { new: true }
+    );
+
+    if (!updatedRendezvous) {
+      return { status: false, message: "Rendez-vous introuvable" };
+    }
+
+    return { status: true, message: "État du rendez-vous mis à jour avec succès", updatedRendezvous };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour de l'état du rendez-vous" };
+  }
+};
 
 module.exports = {
-  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee
+  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById
 };

@@ -1,7 +1,7 @@
 db.clients.deleteMany([])
 db.clients.find();
 db.rendezvous.find();
-
+db.rendezvous.updateMany({}, { $set: { etat: 1 } })
 db.rendezvous.find().pretty();
 db.employes.find().pretty();
 db.services.find().pretty();
