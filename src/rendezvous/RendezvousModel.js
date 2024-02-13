@@ -25,6 +25,10 @@ const rendezvousSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  etat: {
+    type: Number,
+    required: true,
+  },
 });
 
 const RendezvousModel = mongoose.model('Rendezvous', rendezvousSchema);

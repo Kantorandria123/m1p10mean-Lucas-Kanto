@@ -1,5 +1,4 @@
 const RendezvousModel = require('./RendezvousModel');
-const rendezvousModel = require('./RendezvousModel');
 
 const getListRendezvous = async () => {
   try {
@@ -19,7 +18,7 @@ const creerRendezVous = (rendezvous) => {
         rendezvousData.employee_id = rendezvous.employee_id;
         rendezvousData.service_id = rendezvous.service_id;
         rendezvousData.client_id = rendezvous.client_id;
-
+        rendezvousData.etat =  1;
         rendezvousData.save()
             .then(result => {
                 console.log('Save successful');
@@ -41,13 +40,14 @@ const listeRendezvousByClient = async (clientId) => {
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
-          client_id: clientId
+          client_id: clientId,
+          etat:1
         }
       },
       {
         $addFields: {
           employee_id: { $toObjectId: "$employee_id" },
-          service_id: { $toObjectId: "$service_id" }
+          service_id: { $toObjectId: "$service_id" },
         }
       },
       {
@@ -86,7 +86,8 @@ const listeRendezvousByClient = async (clientId) => {
           daty: 1,
           horaire: 1,
           description: 1,
-          client_id: 1
+          client_id: 1,
+          etat:1
         }
       }
     ]);
