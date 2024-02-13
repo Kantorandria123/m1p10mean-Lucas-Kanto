@@ -73,9 +73,30 @@ const listeRendezvousNotifierControlleurFn = async (req, res) => {
   }
 };
 
+const listeRendezvousByEmployeeControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+
+    if(!employeeId) {
+      return res.status(400).send({status: false, message: "Paramètre employeeId manquant dans la requête."});
+    }
+
+    const result = await rendezvousService.listeRendezvousByEmployee(employeeId);
+
+    if (result.status) {
+      res.send({ status: true, message: result.message, rendezvousList: result.rendezvousList });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des rendez-vous par employee" });
+  }
+};
 module.exports = {
   listeRendezvousControllerFn,
   creerRendevousControlleur,
   listeRendezvousByClientControllerFn,
-  listeRendezvousNotifierControlleurFn
+  listeRendezvousNotifierControlleurFn,
+  listeRendezvousByEmployeeControllerFn
 };

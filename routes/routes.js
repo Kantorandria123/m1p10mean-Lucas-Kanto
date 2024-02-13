@@ -10,14 +10,13 @@ var offrespecialControlleur = require('../src/offrespeciale/OffrespecialeControl
 var preferenceServoceControlleur = require('../src/preference_service/PreferenceControlleur');
 var preferenceEmployeControlleur = require('../src/preference_employe/PreferenceControlleur');
 var paiementControlleur = require('../src/paiement/PaiementControlleur');
-var roleControlleur = require("../src/role/RoleControlleur");
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
 router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 
 /*role*/ 
-router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
+// router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
@@ -25,12 +24,13 @@ router.route('/service/lesservices').get(serviceControlleur.getListServiceContro
 /*employe*/ 
 router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeControlleur);
 router.route('/employe/login').post(employeControlleur.loginEmployeeControllerFn);
+router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenControlleur);
 
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);
 router.route('/rendezvous/lesrendezvous/:clientId').get(rendezvousControlleur.listeRendezvousByClientControllerFn);
 router.route('/rendezvous/notification/:clientId').get(rendezvousControlleur.listeRendezvousNotifierControlleurFn);
-
+router.route('/rendezvous/employeerendezvous/:employeeId').get(rendezvousControlleur.listeRendezvousByEmployeeControllerFn);
 // offrespécial
 router.route('/offrespecial/creer').post(offrespecialControlleur.creerOffrespecialControlleur);
 router.route('/offrespecial/lesoffrespecial').get(offrespecialControlleur.listeOffrespecialControlleur);

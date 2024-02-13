@@ -173,6 +173,70 @@ const listeRendezvousNotifier = async (clientId) => {
   }
 };
 
+const listeRendezvousByEmployee = async (employeeId) => {
+  try {
+    console.log("employeeId : " +employeeId);
+    const rendezvousList = await RendezvousModel.aggregate([
+      {
+        $match: {
+          employee_id: employeeId
+        }
+      },
+      {
+        $addFields: {
+          client_id: { $toObjectId: "$client_id" },
+          service_id: { $toObjectId: "$service_id" }
+        }
+      },
+      {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "_id",
+          as: "client_info"
+        }
+      },
+      {
+        $unwind: "$client_info"
+      },
+      {
+        $lookup: {
+          from: "services",
+          localField: "service_id",
+          foreignField: "_id",
+          as: "service_info"
+        }
+      },
+      {
+        $unwind: "$service_info"
+      },
+      {
+        $project: {
+          "client_info.nom":1,
+          "client_info.email":1,
+          "client_info.phone":1,
+          "service_info.nom": 1,
+          "service_info.duree": 1,
+          "service_info.prix": 1,
+          "service_info.commission": 1,
+          "service_info.image": 1,
+          _id: 1,
+          daty: 1,
+          horaire: 1,
+          description: 1,
+          employee_id: 1
+        }
+      }
+    ]);
+    console.log("rendezvousList.length :" +rendezvousList.length);
+    return {status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la récupération de la liste des rendez-vous par employée"};
+  }
+};
+
+
 module.exports = {
-  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier
+  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee
 };
