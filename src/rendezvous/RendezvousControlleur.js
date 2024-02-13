@@ -33,12 +33,13 @@ const creerRendevousControlleur = async (req, res) => {
 const listeRendezvousByClientControllerFn = async (req, res) => {
   try {
     const clientId = req.params.clientId;
+    const etat = req.params.etat;
     
     if (!clientId) {
       return res.status(400).send({ status: false, message: "Paramètre clientId manquant dans la requête." });
     }
 
-    const result = await rendezvousService.listeRendezvousByClient(clientId);
+    const result = await rendezvousService.listeRendezvousByClient(clientId,etat);
 
     if (result.status) {
       res.send({ status: true, message: result.message, rendezvousList: result.rendezvousList });

@@ -34,14 +34,16 @@ const creerRendezVous = (rendezvous) => {
     });
 }
 
-const listeRendezvousByClient = async (clientId) => {
+const listeRendezvousByClient = async (clientId,etat) => {
   try {
     console.log("clientId : "+clientId);
+    const etatInt=parseInt(etat);
+    console.log("etat : "+etatInt);
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
           client_id: clientId,
-          etat:1
+          etat: etatInt
         }
       },
       {

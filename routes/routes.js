@@ -28,7 +28,7 @@ router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenC
 
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);
-router.route('/rendezvous/lesrendezvous/:clientId').get(rendezvousControlleur.listeRendezvousByClientControllerFn);
+router.route('/rendezvous/lesrendezvous/:clientId/:etat').get(rendezvousControlleur.listeRendezvousByClientControllerFn);
 router.route('/rendezvous/notification/:clientId').get(rendezvousControlleur.listeRendezvousNotifierControlleurFn);
 router.route('/rendezvous/employeerendezvous/:employeeId').get(rendezvousControlleur.listeRendezvousByEmployeeControllerFn);
 // offrespécial
