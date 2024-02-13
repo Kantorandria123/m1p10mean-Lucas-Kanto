@@ -74,6 +74,20 @@ const getEmployeeByToken = (employeeDetails) => {
   });
 }
 
+const getEmployeeById = async (employeeId) => {
+  try {
+    const employes = await employeModel.findById(employeeId);
+    if (!employes) {
+      return { status: false, message: "Aucun employé trouvé avec cet identifiant" };
+    }
+    return { status: true, message: "Employé trouvé avec succès", employes };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la recherche de l'employé" };
+  }
+};
+
+
 function getCurrentDateTime() {
   const currentDateTime = new Date();
   const date = currentDateTime.toISOString().split('T')[0];
@@ -84,5 +98,5 @@ function getCurrentDateTime() {
 
  
 module.exports = {
-  getListEmploye,loginEmployeeDBService,getEmployeeByToken
+  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById
 };

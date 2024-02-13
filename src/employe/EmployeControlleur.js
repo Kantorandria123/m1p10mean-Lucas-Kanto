@@ -42,4 +42,20 @@ const employeeByTokenControlleur = async (req, res) => {
   }
 }
 
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur};
+const employeeByIdControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    console.log("employeeId: " +employeeId);
+   const result = await employeService.getEmployeeById(employeeId);
+   if (result.status) {
+    res.send({ status: true, message: result.message, employes: result.employes });
+   } else {
+    res.send({ status: false, message: result.message });
+   }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des employee par id" });
+  }
+}
+
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn};
