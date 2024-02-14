@@ -47,4 +47,5 @@ router.route('/preference/employe/creer').post(preferenceEmployeControlleur.crea
 /*paiement*/
 router.route('/paiement/creer').post(paiementControlleur.createPaiementControllerFn);
 router.route('/paiement/lespaiements/:clientId/:etat').get(paiementControlleur.getlistePaiementControlleur);
+router.route('/paiement/payer/:id/:etat').get(paiementControlleur.updateEtatPaiementontrollerFn);
 module.exports = router;

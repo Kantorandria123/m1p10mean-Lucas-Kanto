@@ -1,6 +1,6 @@
 var paiementModel = require('./PaiementModel');
 
-module.exports.createPaiementSercvice = (paiementDetail) => {
+var createPaiementService = (paiementDetail) => {
 
 
    return new Promise(function myFn(resolve, reject) {
@@ -29,19 +29,45 @@ module.exports.createPaiementSercvice = (paiementDetail) => {
    });
 
 }
-  const getListePaiement = async (clientId,etat) => {
+const getListePaiement = async (clientId, etat) => {
+  try {
+    console.log("clientID : " + clientId);
+    console.log("etat : " + etat);
+    const paiements = await paiementModel.find({ client_id: clientId, etat: etat });
+
+    // Calculer le total des prix des paiements
+    let totalPrix = 0;
+    paiements.forEach(paiement => {
+      totalPrix += paiement.prix; // Assurez-vous que le nom de la clé correspond à la clé contenant le prix dans votre modèle de paiement
+    });
+
+    console.log(paiements);
+    return { status: true, message: "Liste des Paiement récupérée avec succès", paiements, totalPrix };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la récupération de la liste des Paiement" };
+  }
+};
+
+  const updateEtatPaiementId = async (id, newEtat) => {
     try {
-      console.log("clientID : "+clientId);
-      console.log("etat : "+etat);
-      const paiements = await paiementModel.find({client_id:clientId,etat:etat});
-      console.log(paiements);
-      return { status: true, message: "Liste des Paiement récupérée avec succès", paiements };
+      const newEtatInt=parseInt(newEtat);
+      const updatePaiement = await paiementModel.findByIdAndUpdate(
+        id,
+        { $set: { etat: newEtatInt } },
+        { new: true }
+      );
+  
+      if (!updatePaiement) {
+        return { status: false, message: "PAIEMENT introuvable" };
+      }
+  
+      return { status: true, message: "État du PAIEMENT mis à jour avec succès", updatePaiement };
     } catch (error) {
       console.error(error);
-      return { status: false, message: "Erreur lors de la récupération de la liste des Paiement" };
+      return { status: false, message: "Erreur lors de la mise à jour de l'état du PAIEMENT" };
     }
   };
-
   module.exports = {
-    getListePaiement
+    createPaiementService,getListePaiement,updateEtatPaiementId
   };

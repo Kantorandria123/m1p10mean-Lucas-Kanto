@@ -106,12 +106,10 @@ const listeRendezvousNotifier = async (clientId) => {
     console.log("clientId : "+clientId);
     const currentDate = new Date();
 
-    // Obtenez les composants de la date
     const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
-    const day = String(currentDate.getDate()+1).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()+1).padStart(2, '0'); 
 
-    // Créez la chaîne de date au format "yyyy-mm-dd"
     const datyNotification = `${year}-${month}-${day}`;
 
     console.log("datyNotification  = "+datyNotification); 
