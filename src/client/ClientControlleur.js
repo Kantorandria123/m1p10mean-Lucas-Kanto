@@ -47,5 +47,21 @@ var getClientByTokenControlleur = async (req, res) => {
         res.send({ "status": false, "message": error.message });
     }
 }
+const updateArgentcontrollerFn = async (req, res) => {
+    try {
+      console.log("req.body "+req.body);
+      const result = await ClientService.updateArgentByClientId(req.body);
+  
+      if (result.status) {
+        res.send({ status: true, message: result.message, updateArgent: result.updateArgent });
+      } else {
+        res.send({ status: false, message: result.message });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'état update argent" });
+    }
+  };
 
-module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur };
+
+module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn };

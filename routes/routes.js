@@ -14,6 +14,7 @@ var paiementControlleur = require('../src/paiement/PaiementControlleur');
 router.route('/client/login').post(clientController.loginUserControllerFn);
 router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
+router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
 /*role*/ 
 // router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);

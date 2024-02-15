@@ -31,20 +31,15 @@ var createPaiementService = (paiementDetail) => {
 }
 const getListePaiement = async (clientId, etat) => {
   try {
-    console.log("clientID : " + clientId);
-    console.log("etat : " + etat);
     const paiements = await paiementModel.find({ client_id: clientId, etat: etat });
-
-    // Calculer le total des prix des paiements
     let totalPrix = 0;
     paiements.forEach(paiement => {
-      totalPrix += paiement.prix; // Assurez-vous que le nom de la clé correspond à la clé contenant le prix dans votre modèle de paiement
+      totalPrix += paiement.prix; 
     });
 
     console.log(paiements);
     return { status: true, message: "Liste des Paiement récupérée avec succès", paiements, totalPrix };
   } catch (error) {
-    console.error(error);
     return { status: false, message: "Erreur lors de la récupération de la liste des Paiement" };
   }
 };
@@ -68,6 +63,7 @@ const getListePaiement = async (clientId, etat) => {
       return { status: false, message: "Erreur lors de la mise à jour de l'état du PAIEMENT" };
     }
   };
+
   module.exports = {
     createPaiementService,getListePaiement,updateEtatPaiementId
   };

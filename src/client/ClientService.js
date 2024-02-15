@@ -99,6 +99,36 @@ module.exports.loginUserDBService = (clientDetails) => {
    });
  }
  
+ module.exports.updateArgentByClientId = async (clientDetails) => {
+  try {
+    const id = clientDetails._id;
+    const newArgent = Number(clientDetails.argent);
+    const currentClient = await clientModel.findById(id);
+    if (!currentClient) {
+      return { status: false, message: "Client introuvable" };
+    }
+
+    const currentArgent = currentClient.argent;
+    if (currentArgent < newArgent) {
+      return { status: false, message: "Le solde actuel est insuffisant pour cette transaction" };
+    }
+
+    const updateArgent = await clientModel.findByIdAndUpdate(
+      id,
+      { $inc: { argent: -newArgent } },
+      { new: true }
+    );
+
+    if (!updateArgent) {
+      return { status: false, message: "PAIEMENT ARGENT introuvable" };
+    }
+
+    return { status: true, message: "État du PAIEMENT ARGENT mis à jour avec succès", updateArgent };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour de l'état du PAIEMENT ARGENT" };
+  }
+};
 
 
 function getCurrentDateTime() {
