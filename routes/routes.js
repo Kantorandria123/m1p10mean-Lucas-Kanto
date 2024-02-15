@@ -32,6 +32,7 @@ router.route('/employe/employeupdate/:employeeId').patch(employeControlleur.upda
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);
 router.route('/rendezvous/lesrendezvous/:clientId/:etat').get(rendezvousControlleur.listeRendezvousByClientControllerFn);
+router.route('/rendezvous/historique/:clientId').get(rendezvousControlleur.historiqueRendezvousByClientControllerFn);
 router.route('/rendezvous/notification/:clientId').get(rendezvousControlleur.listeRendezvousNotifierControlleurFn);
 router.route('/rendezvous/employeerendezvous/:employeeId').get(rendezvousControlleur.listeRendezvousByEmployeeControllerFn);
 router.route('/rendezvous/modifieretat/:id/:etat').get(rendezvousControlleur.updateEtatRendezVousControllerFn);
