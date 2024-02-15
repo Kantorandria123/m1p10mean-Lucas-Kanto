@@ -41,6 +41,7 @@ router.route('/offrespecial/lesoffrespecial').get(offrespecialControlleur.listeO
 
 /*preference_service*/
 router.route('/preference/service/creer').post(preferenceServoceControlleur.createPreferenceControllerFn);
+router.route('/preference/service/liste/:client_id').get(preferenceServoceControlleur.listePreferenceControllerFn);
 
 /*preference_service*/
 router.route('/preference/employe/creer').post(preferenceEmployeControlleur.createPreferenceControllerFn);
