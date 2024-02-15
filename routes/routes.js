@@ -43,9 +43,9 @@ router.route('/offrespecial/lesoffrespecial').get(offrespecialControlleur.listeO
 router.route('/preference/service/creer').post(preferenceServoceControlleur.createPreferenceControllerFn);
 router.route('/preference/service/liste/:client_id').get(preferenceServoceControlleur.listePreferenceControllerFn);
 
-/*preference_service*/
+/*preference_employe*/
 router.route('/preference/employe/creer').post(preferenceEmployeControlleur.createPreferenceControllerFn);
-
+router.route('/preference/employe/liste/:client_id').get(preferenceEmployeControlleur.listePreferenceControllerFn);
 /*paiement*/
 router.route('/paiement/creer').post(paiementControlleur.createPaiementControllerFn);
 router.route('/paiement/lespaiements/:clientId/:etat').get(paiementControlleur.getlistePaiementControlleur);

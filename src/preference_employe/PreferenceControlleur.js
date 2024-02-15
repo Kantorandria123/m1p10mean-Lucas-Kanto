@@ -16,7 +16,23 @@ var createPreferenceControllerFn = async (req, res) => {
     }
 }
 
+const listePreferenceControllerFn = async (req, res) => {
+    try {
+      const clientId = req.params.client_id;
+      if(!clientId) {
+        return res.status(400).send({status: false, message: "Paramètre clientId manquant dans la requête."});
+      }
+      const result = await preferenceService.getMesPreferencesEmployes(clientId);
+      if (result.status) {
+        res.send({ status: true, message: result.message, preferenceslist: result.preferenceslist });
+      } else {
+        res.send({ status: false, message: result.message });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des employes par employes" });
+    }
+  };
 
 
-
-module.exports = { createPreferenceControllerFn };
+module.exports = { createPreferenceControllerFn,listePreferenceControllerFn };
