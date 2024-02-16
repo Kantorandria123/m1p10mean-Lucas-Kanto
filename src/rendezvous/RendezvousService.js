@@ -24,7 +24,6 @@ const creerRendezVous = (rendezvous) => {
                 console.log('Save successful');
                 
                 const insertedId = result._id;
-                console.log('insertedId '+insertedId);
                 resolve({ success: true, id: insertedId });
             })
             .catch(error => {
@@ -36,9 +35,7 @@ const creerRendezVous = (rendezvous) => {
 
 const listeRendezvousByClient = async (clientId,etat) => {
   try {
-    console.log("clientId : "+clientId);
     const etatInt=parseInt(etat);
-    console.log("etat : "+etatInt);
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
@@ -93,7 +90,6 @@ const listeRendezvousByClient = async (clientId,etat) => {
         }
       }
     ]);
-    console.log("rendezvousList.length : "+rendezvousList);
     return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
   } catch (error) {
     console.error(error);
@@ -103,16 +99,12 @@ const listeRendezvousByClient = async (clientId,etat) => {
 
 const listeRendezvousNotifier = async (clientId) => {
   try {
-    console.log("clientId : "+clientId);
     const currentDate = new Date();
 
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
     const day = String(currentDate.getDate()+1).padStart(2, '0'); 
-
     const datyNotification = `${year}-${month}-${day}`;
-
-    console.log("datyNotification  = "+datyNotification); 
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
@@ -166,7 +158,6 @@ const listeRendezvousNotifier = async (clientId) => {
         }
       }
     ]);
-    console.log("rendezvousList.length : "+rendezvousList.length);
     return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
   } catch (error) {
     console.error(error);
@@ -176,7 +167,6 @@ const listeRendezvousNotifier = async (clientId) => {
 
 const listeRendezvousByEmployee = async (employeeId) => {
   try {
-    console.log("employeeId : " +employeeId);
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
@@ -311,7 +301,6 @@ const historiqueRendezvousByClient = async (clientId) => {
         }
       }
     ]);
-    console.log("rendezvousList.length : "+rendezvousList);
     return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
   } catch (error) {
     console.error(error);
