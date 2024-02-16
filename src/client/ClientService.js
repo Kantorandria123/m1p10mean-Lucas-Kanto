@@ -83,9 +83,6 @@ module.exports.loginUserDBService = (clientDetails) => {
    return new Promise((resolve, reject) => {
      clientModel.findOne({ email: clientDetails.email,token:clientDetails.token})
        .then(result => {
-         console.log("email : " + clientDetails.email);
-         console.log("token : " + clientDetails.token);
-         console.log("result "+result);
          resolve({
             status: true,
             message: "client trouver!",

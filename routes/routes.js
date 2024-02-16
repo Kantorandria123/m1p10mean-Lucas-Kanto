@@ -10,6 +10,8 @@ var offrespecialControlleur = require('../src/offrespeciale/OffrespecialeControl
 var preferenceServoceControlleur = require('../src/preference_service/PreferenceControlleur');
 var preferenceEmployeControlleur = require('../src/preference_employe/PreferenceControlleur');
 var paiementControlleur = require('../src/paiement/PaiementControlleur');
+const emailController = require('../src/email/EmailController'); 
+
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
 router.route('/client/create').post(clientController.createClientControllerFn);
@@ -51,4 +53,7 @@ router.route('/preference/employe/liste/:client_id').get(preferenceEmployeContro
 router.route('/paiement/creer').post(paiementControlleur.createPaiementControllerFn);
 router.route('/paiement/lespaiements/:clientId/:etat').get(paiementControlleur.getlistePaiementControlleur);
 router.route('/paiement/payer/:id/:etat').get(paiementControlleur.updateEtatPaiementontrollerFn);
+
+/*email*/
+router.post('/email/send', emailController.sendEmailControllerFn);
 module.exports = router;
