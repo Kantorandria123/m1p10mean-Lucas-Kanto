@@ -11,6 +11,7 @@ var preferenceServoceControlleur = require('../src/preference_service/Preference
 var preferenceEmployeControlleur = require('../src/preference_employe/PreferenceControlleur');
 var paiementControlleur = require('../src/paiement/PaiementControlleur');
 const emailController = require('../src/email/EmailController'); 
+var tacheControlleur = require('../src/tache/TacheControlleur');
 
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
@@ -56,4 +57,8 @@ router.route('/paiement/payer/:id/:etat').get(paiementControlleur.updateEtatPaie
 
 /*email*/
 router.post('/email/send', emailController.sendEmailControllerFn);
+
+/*Tache*/
+router.route('/tache/creer').post(tacheControlleur.creerTacheControlleur);
+router.route('/tache/liste/:employeid/:etat').get(tacheControlleur.listetacheControllerFn);
 module.exports = router;
