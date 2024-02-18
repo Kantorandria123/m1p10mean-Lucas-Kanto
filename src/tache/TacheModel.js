@@ -25,6 +25,10 @@ const tacheSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rendezvous_id: {
+    type: String,
+    required: true,
+  },
   etat: {
     type: Number,
     required: true,

@@ -18,6 +18,7 @@ const creertache = (tache) => {
         tacheData.description = tache.description;
         tacheData.employee_id = tache.employee_id;
         tacheData.service_id = tache.service_id;
+        tacheData.rendezvous_id = tache.rendezvous_id;
         tacheData.etat =  1;
         tacheData.save()
             .then(result => {
