@@ -3,20 +3,16 @@ const OffrespecialeModel = require('./OffrespecialeModel');
 const getListOffrespecial = async () => {
   try{
     const currentDate = new Date();
-
-    // Obtenez les composants de la date
     const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
-    const day = String(currentDate.getDate()).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
-
-    // Créez la chaîne de date au format "yyyy-mm-dd"
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()).padStart(2, '0'); 
     const daty = `${year}-${month}-${day}`;
     console.log("daty "+daty);
 
     const offrespecialList = await OffrespecialeModel.aggregate([
       {
         $addFields: {
-          service_id: { $toObjectId: "65c31bbb807aeeb8ae5a5a96" }
+          service_id: { $toObjectId: "$service_id" }
         }
       },
       {

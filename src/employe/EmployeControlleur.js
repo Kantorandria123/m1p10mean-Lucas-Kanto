@@ -14,53 +14,65 @@ const getlisteEmployeControlleur = async (req, res) => {
   }
 };
 
-var createEmployeeControllerFn = async (req, res) => 
-{
-    try
-    {
-    console.log(req.body);
-    var status = await employeService.createEmployeeDBService(req.body);
-    console.log(status);
-
-    if (status) {
-        res.send({ "status": true, "message": "Employee created successfully" });
+const loginEmployeeControllerFn = async (req, res) => {
+  try{
+    const result = await employeService.loginEmployeeDBService(req.body);
+    if (result.status) {
+      res.send({"status": true, "message": result.message, "employes": result.employes});
     } else {
-        res.send({ "status": false, "message": "Error creating Employeeuser" });
+      res.send({"status": false, "message": result.message});
     }
-}
-catch(err)
-{
-    console.log(err);
-}
-}
-
-var loginEmployeeControllerFn = async (req, res) => {
-  try {
-      const result = await employeService.loginEmployeeDBService(req.body);
-      if (result.status) {
-          res.send({ "status": true, "message": result.message, "employee": result.employee });
-      } else {
-          res.send({ "status": false, "message": result.message });
-      }
   } catch (error) {
-      console.error(error);
-      res.send({ "status": false, "message": error.message });
+    console.error(error);
+    res.send({ "status": false, "message": error.message });
   }
 }
 
-var getEmployeeByTokenControlleur = async (req, res) => {
+const employeeByTokenControlleur = async (req, res) => {
   try {
-      const result = await employeService.getEmployeeByToken(req.body);
-      if (result.status) {
-          res.send({ "status": true, "message": result.message, "employee": result.employee });
-      } else {
-          res.send({ "status": false, "message": result.message });
-      }
+    const result = await employeService.getEmployeeByToken(req.body);
+    if (result.status) {
+      res.send({"status": true, "message": result.message, "employes": result.employes});
+    } else {
+      res.send({"status": false, "message": result.message });
+    }
   } catch (error) {
-      console.error(error);
-      res.send({ "status": false, "message": error.message });
+    console.error(error);
+    res.send({"status": false, "message": error.message});
   }
 }
 
+const employeeByIdControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    console.log("employeeId: " +employeeId);
+   const result = await employeService.getEmployeeById(employeeId);
+   if (result.status) {
+    res.send({ status: true, message: result.message, employes: result.employes });
+   } else {
+    res.send({ status: false, message: result.message });
+   }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des employee par id" });
+  }
+}
 
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,getEmployeeByTokenControlleur,createEmployeeControllerFn };
+const updateEmployeeByIdControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    const newData = req.body; // Supposons que les nouvelles données sont envoyées dans le corps de la requête
+
+    const result = await employeService.updateEmployeeById(employeeId, newData);
+    if (result.status) {
+      res.send({ status: true, message: result.message, updatedEmployee: result.updatedEmployee });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'employé par ID" });
+  }
+};
+
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn};

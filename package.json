@@ -10,9 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^8.1.1",
-    "simple-encryptor": "^4.0.0",
-    "dotenv": "^16.0.3"
+    "nodemailer": "^6.9.9",
+    "simple-encryptor": "^4.0.0"
   }
 }

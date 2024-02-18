@@ -1,5 +1,4 @@
 const RendezvousModel = require('./RendezvousModel');
-const rendezvousModel = require('./RendezvousModel');
 
 const getListRendezvous = async () => {
   try {
@@ -19,13 +18,12 @@ const creerRendezVous = (rendezvous) => {
         rendezvousData.employee_id = rendezvous.employee_id;
         rendezvousData.service_id = rendezvous.service_id;
         rendezvousData.client_id = rendezvous.client_id;
-
+        rendezvousData.etat =  1;
         rendezvousData.save()
             .then(result => {
                 console.log('Save successful');
                 
                 const insertedId = result._id;
-                console.log('insertedId '+insertedId);
                 resolve({ success: true, id: insertedId });
             })
             .catch(error => {
@@ -35,19 +33,20 @@ const creerRendezVous = (rendezvous) => {
     });
 }
 
-const listeRendezvousByClient = async (clientId) => {
+const listeRendezvousByClient = async (clientId,etat) => {
   try {
-    console.log("clientId : "+clientId);
+    const etatInt=parseInt(etat);
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
-          client_id: clientId
+          client_id: clientId,
+          etat: etatInt
         }
       },
       {
         $addFields: {
           employee_id: { $toObjectId: "$employee_id" },
-          service_id: { $toObjectId: "$service_id" }
+          service_id: { $toObjectId: "$service_id" },
         }
       },
       {
@@ -86,11 +85,11 @@ const listeRendezvousByClient = async (clientId) => {
           daty: 1,
           horaire: 1,
           description: 1,
-          client_id: 1
+          client_id: 1,
+          etat:1
         }
       }
     ]);
-    console.log("rendezvousList.length : "+rendezvousList);
     return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
   } catch (error) {
     console.error(error);
@@ -100,18 +99,12 @@ const listeRendezvousByClient = async (clientId) => {
 
 const listeRendezvousNotifier = async (clientId) => {
   try {
-    console.log("clientId : "+clientId);
     const currentDate = new Date();
 
-    // Obtenez les composants de la date
     const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
-    const day = String(currentDate.getDate()+1).padStart(2, '0'); // Ajoute un zéro devant si nécessaire
-
-    // Créez la chaîne de date au format "yyyy-mm-dd"
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()+1).padStart(2, '0'); 
     const datyNotification = `${year}-${month}-${day}`;
-
-    console.log("datyNotification  = "+datyNotification); 
     const rendezvousList = await RendezvousModel.aggregate([
       {
         $match: {
@@ -165,7 +158,6 @@ const listeRendezvousNotifier = async (clientId) => {
         }
       }
     ]);
-    console.log("rendezvousList.length : "+rendezvousList.length);
     return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
   } catch (error) {
     console.error(error);
@@ -173,6 +165,148 @@ const listeRendezvousNotifier = async (clientId) => {
   }
 };
 
+const listeRendezvousByEmployee = async (employeeId) => {
+  try {
+    const rendezvousList = await RendezvousModel.aggregate([
+      {
+        $match: {
+          employee_id: employeeId
+        }
+      },
+      {
+        $addFields: {
+          client_id: { $toObjectId: "$client_id" },
+          service_id: { $toObjectId: "$service_id" }
+        }
+      },
+      {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "_id",
+          as: "client_info"
+        }
+      },
+      {
+        $unwind: "$client_info"
+      },
+      {
+        $lookup: {
+          from: "services",
+          localField: "service_id",
+          foreignField: "_id",
+          as: "service_info"
+        }
+      },
+      {
+        $unwind: "$service_info"
+      },
+      {
+        $project: {
+          "client_info.nom":1,
+          "client_info.email":1,
+          "client_info.phone":1,
+          "service_info.nom": 1,
+          "service_info.duree": 1,
+          "service_info.prix": 1,
+          "service_info.commission": 1,
+          "service_info.image": 1,
+          _id: 1,
+          daty: 1,
+          horaire: 1,
+          description: 1,
+          employee_id: 1
+        }
+      }
+    ]);
+    console.log("rendezvousList.length :" +rendezvousList.length);
+    return {status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la récupération de la liste des rendez-vous par employée"};
+  }
+};
+
+const updateEtatRendezVousById = async (id, newEtat) => {
+  try {
+    const newEtatInt=parseInt(newEtat);
+    const updatedRendezvous = await RendezvousModel.findByIdAndUpdate(
+      id,
+      { $set: { etat: newEtatInt } },
+      { new: true }
+    );
+
+    if (!updatedRendezvous) {
+      return { status: false, message: "Rendez-vous introuvable" };
+    }
+
+    return { status: true, message: "État du rendez-vous mis à jour avec succès", updatedRendezvous };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour de l'état du rendez-vous" };
+  }
+};
+const historiqueRendezvousByClient = async (clientId) => {
+  try {
+    const rendezvousList = await RendezvousModel.aggregate([
+      {
+        $match: {
+          client_id: clientId
+        }
+      },
+      {
+        $addFields: {
+          employee_id: { $toObjectId: "$employee_id" },
+          service_id: { $toObjectId: "$service_id" },
+        }
+      },
+      {
+        $lookup: {
+          from: "employes",
+          localField: "employee_id",
+          foreignField: "_id",
+          as: "employe_info"
+        }
+      },
+      {
+        $unwind: "$employe_info"
+      },
+      {
+        $lookup: {
+          from: "services",
+          localField: "service_id",
+          foreignField: "_id",
+          as: "service_info"
+        }
+      },
+      {
+        $unwind: "$service_info"
+      },
+      {
+        $project: {
+          "employe_info.nom": 1,
+          "employe_info.horaireTravail": 1,
+          "employe_info.image": 1,
+          "service_info.nom": 1,
+          "service_info.duree": 1,
+          "service_info.prix": 1,
+          "service_info.commission": 1,
+          "service_info.image": 1,
+          _id: 1,
+          daty: 1,
+          horaire: 1,
+          description: 1,
+          client_id: 1,
+          etat:1
+        }
+      }
+    ]);
+    return { status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la récupération de la liste des rendez-vous par client" };
+  }
+};
 module.exports = {
-  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier
+  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById,historiqueRendezvousByClient
 };

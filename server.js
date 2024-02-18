@@ -25,9 +25,9 @@ db.once('open', () => {
     
     // Start the server after successfully connecting to the database
     app.listen(PORT, () => {
-        console.log('Server started on port ${PORT}');
+        console.log('Server started on port '+PORT);
     });
 });
-
+app.use(express.static("frontend"));
 app.use(express.json());
 app.use(routes);
