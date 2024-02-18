@@ -86,7 +86,8 @@ const listetaches = async (employeid,etat) => {
           horairedebut: 1,
           horairefin: 1,
           description: 1,
-          etat:1
+          etat:1,
+          rendezvous_id:1
         }
       }
     ]);
