@@ -16,11 +16,9 @@ const listeRendezvousControllerFn = async (req, res) => {
 
 const creerRendevousControlleur = async (req, res) => {
   try {
-    console.log(req.body);
     var result = await rendezvousService.creerRendezVous(req.body);
-    console.log(result);
     if (result) {
-      res.send({ "status": true, "message": "Rendezvous created successfully", "id": result._id });
+      res.send({ "status": true, "message": "Rendezvous created successfully", "id": result.id });
     } else {
       res.send({ "status": false, "message": "Error creating rendezvous" });
     }
