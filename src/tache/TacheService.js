@@ -38,14 +38,14 @@ const listetaches = async (employeid,etat) => {
     const tacheList = await tacheModel.aggregate([
       {
         $match: {
-          employee_id:employeid,
+          employee_id: employeid,
           etat: etatInt
         }
       },
       {
         $addFields: {
           employee_id: { $toObjectId: "$employee_id" },
-          service_id: { $toObjectId: "$service_id" },
+          service_id: { $toObjectId: "$service_id" }
         }
       },
       {
@@ -71,6 +71,32 @@ const listetaches = async (employeid,etat) => {
         $unwind: "$service_info"
       },
       {
+        $addFields: {
+          commission_pourcentage: { $multiply: [{ $divide: ["$service_info.prix", 100] }, "$service_info.commission"] }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          somme_prix: { $sum: "$service_info.prix" },
+          somme_commission: { $sum: "$service_info.commission" },
+          somme_commission_pourcentage: { $sum: "$commission_pourcentage" },
+          somme_duree: { $sum: "$service_info.duree" },
+          data: { $push: "$$ROOT" } // Pour conserver les données originales dans un tableau
+        }
+      },
+      {
+        $unwind: "$data" // Pour dérouler les données originales
+      },
+      {
+        $replaceRoot: { newRoot: { $mergeObjects: ["$data", { 
+          somme_prix: "$somme_prix",
+          somme_commission: "$somme_commission",
+          somme_commission_pourcentage: "$somme_commission_pourcentage",
+          somme_duree: "$somme_duree"
+        }]}}
+      },
+      {
         $project: {
           "employe_info.nom": 1,
           "employe_info.horaireTravail": 1,
@@ -80,15 +106,24 @@ const listetaches = async (employeid,etat) => {
           "service_info.prix": 1,
           "service_info.commission": 1,
           "service_info.image": 1,
+          "client_info.nom": 1,
+          "client_info.email": 1,
           _id: 1,
           daty: 1,
           horairedebut: 1,
           horairefin: 1,
           description: 1,
-          etat:1
+          etat: 1,
+          commission_pourcentage: 1,
+          somme_prix: 1,
+          somme_commission: 1,
+          somme_commission_pourcentage: 1,
+          somme_duree: 1
         }
       }
     ]);
+    
+    
     return { status: true, message: "Liste des tache récupérée avec succès", tacheList };
   } catch (error) {
     console.error(error);

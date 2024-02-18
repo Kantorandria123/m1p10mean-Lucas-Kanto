@@ -59,9 +59,6 @@ const getEmployeeByToken = (employeeDetails) => {
   return new Promise((resolve, reject) => {
     employeModel.findOne({ email: employeeDetails.email,token: employeeDetails.token})
       .then(result => {
-        console.log("email: " +employeeDetails.email);
-        console.log("token: " +employeeDetails.token);
-        console.log("result" +result);
         resolve({
           status: true,
           message: "Employée trouver!",
