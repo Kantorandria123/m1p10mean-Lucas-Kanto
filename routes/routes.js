@@ -61,4 +61,5 @@ router.post('/email/send', emailController.sendEmailControllerFn);
 /*Tache*/
 router.route('/tache/creer').post(tacheControlleur.creerTacheControlleur);
 router.route('/tache/liste/:employeid/:etat').get(tacheControlleur.listetacheControllerFn);
+router.route('/tache/modifieretat/:id/:etat').get(tacheControlleur.updateEtatControllerFn);
 module.exports = router;

@@ -96,7 +96,25 @@ const listetaches = async (employeid,etat) => {
   }
 };
 
+const updateEtat = async (id, newEtat) => {
+  try {
+    const newEtatInt=parseInt(newEtat);
+    const updatedtache = await tacheModel.findByIdAndUpdate(
+      id,
+      { $set: { etat: newEtatInt } },
+      { new: true }
+    );
 
+    if (!updatedtache) {
+      return { status: false, message: "updatedtache introuvable" };
+    }
+
+    return { status: true, message: "État du updatedtache mis à jour avec succès", updatedtache };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour de l'état du updatedtache" };
+  }
+};
 module.exports = {
-  getListtache,creertache,listetaches
+  getListtache,creertache,listetaches,updateEtat
 };

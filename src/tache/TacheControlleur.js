@@ -51,10 +51,31 @@ const listetacheControllerFn = async (req, res) => {
     res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des tache par client" });
   }
 };
+const updateEtatControllerFn = async (req, res) => {
+  try {
+    const tacheId = req.params.id;
+    const newEtat = req.params.etat;
+    if (!tacheId || !newEtat) {
+      return res.status(400).send({ status: false, message: "Paramètres manquants dans la requête." });
+    }
+
+    const result = await tacheService.updateEtat(tacheId, newEtat);
+
+    if (result.status) {
+      res.send({ status: true, message: result.message, updatedtache: result.updatedtache });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'état du rendez-vous" });
+  }
+};
 
 
 module.exports = {
   getlistetacheControllerFn,
   creerTacheControlleur,
-  listetacheControllerFn
+  listetacheControllerFn,
+  updateEtatControllerFn
 };
