@@ -119,7 +119,8 @@ const listetaches = async (employeid,etat) => {
           somme_prix: 1,
           somme_commission: 1,
           somme_commission_pourcentage: 1,
-          somme_duree: 1
+          somme_duree: 1,
+          rendezvous_id:1
         }
       }
     ]);
