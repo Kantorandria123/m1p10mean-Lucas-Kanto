@@ -215,11 +215,11 @@ const listeRendezvousByEmployee = async (employeeId) => {
           daty: 1,
           horaire: 1,
           description: 1,
-          employee_id: 1
+          employee_id: 1,
+          etat:1
         }
       }
     ]);
-    console.log("rendezvousList.length :" +rendezvousList.length);
     return {status: true, message: "Liste des rendez-vous récupérée avec succès", rendezvousList};
   } catch (error) {
     console.error(error);
