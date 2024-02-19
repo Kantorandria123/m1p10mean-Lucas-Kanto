@@ -11,15 +11,15 @@ const employeSchema = new mongoose.Schema({
   },
   mdp: {
     type: String,
-    required: true,
+    required: false,
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   horaireTravail: {
     type: String, 
-    required: true,
+    required: false,
   },
   token: {
     type: String,

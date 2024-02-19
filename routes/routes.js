@@ -27,11 +27,13 @@ router.route('/client/updateargent').post(clientController.updateArgentcontrolle
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
 
 /*employe*/ 
+router.route('/employe/create').post(employeControlleur.createemployeControllerFn);
 router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeControlleur);
 router.route('/employe/login').post(employeControlleur.loginEmployeeControllerFn);
 router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenControlleur);
 router.route('/employe/employebyId/:employeeId').get(employeControlleur.employeeByIdControllerFn);
 router.route('/employe/employeupdate/:employeeId').patch(employeControlleur.updateEmployeeByIdControllerFn);
+router.route('/employe/supprimer/:id').delete(employeControlleur.deleteEmployeeByIdControllerFn);
 
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);

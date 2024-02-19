@@ -2,6 +2,39 @@ const employeModel = require('./EmployeModel');
 var key = '123456789trytryrtyr';
 var encryptor = require('simple-encryptor')(key);
 
+const createEmployeDBService = (employeDetails) => {
+
+
+  return new Promise(function myFn(resolve, reject) {
+
+      var employeModelData = new employeModel();
+      employeModelData.nom = employeDetails.nom;
+      employeModelData.email = employeDetails.email;
+      employeModelData.horaireTravail = employeDetails.horaireTravail;
+      employeModelData.image = employeDetails.image;
+      if (employeDetails.mdp !== undefined && employeDetails.mdp !== null) {
+          var encrypted = encryptor.encrypt(employeDetails.mdp);
+          employeModelData.mdp = encrypted;
+      }
+      
+     
+
+     employeModelData.save()
+           .then(result => {
+               console.log('Save successful');
+               
+               const insertedId = result._id;
+               resolve({ status: true, id: insertedId });
+           })
+           .catch(error => {
+               console.error('Save failed', error);
+               reject({ status: false, error: error });
+           });
+    
+  });
+
+}
+
 const getListEmploye = async () => {
   try {
     const employes = await employeModel.find({});
@@ -97,7 +130,18 @@ const updateEmployeeById = async (employeeId, updateData) => {
   }
 };
 
-
+const deleteEmployeById = async (employeeId) => {
+  try {
+    const deletedEmployee = await employeModel.findByIdAndDelete(employeeId);
+    if (!deletedEmployee) {
+      return { status: false, message: "Aucun employé trouvé avec cet identifiant pour la suppression" };
+    }
+    return { status: true, message: "Employé supprimé avec succès", deletedEmployee };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la suppression de l'employé" };
+  }
+};
 
 function getCurrentDateTime() {
   const currentDateTime = new Date();
@@ -109,5 +153,5 @@ function getCurrentDateTime() {
 
  
 module.exports = {
-  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById,updateEmployeeById
+  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById,updateEmployeeById,createEmployeDBService,deleteEmployeById
 };

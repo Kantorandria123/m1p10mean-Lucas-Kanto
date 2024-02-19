@@ -1,5 +1,21 @@
 const employeService = require('./EmployeService');
 
+var createemployeControllerFn = async (req, res) => 
+{
+    try
+    {
+    var status = await employeService.createEmployeDBService(req.body);
+    if (status) {
+        res.send({ "status": true, "message": "employe created successfully" });
+    } else {
+        res.send({ "status": false, "message": "Error creating user" });
+    }
+}
+catch(err)
+{
+    console.log(err);
+}
+}
 const getlisteEmployeControlleur = async (req, res) => {
   try {
     const result = await employeService.getListEmploye();
@@ -74,5 +90,19 @@ const updateEmployeeByIdControllerFn = async (req, res) => {
     res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'employé par ID" });
   }
 };
+const deleteEmployeeByIdControllerFn = async (req, res) => {
+  try {
+    const employeeId = req.params.id; 
+    const result = await employeService.deleteEmployeById(employeeId); 
 
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn};
+    if (result.status) {
+      res.send({ status: true, message: result.message, deletedEmployee: result.deletedEmployee });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la suppression de l'employé par ID" });
+  }
+};
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn,createemployeControllerFn,deleteEmployeeByIdControllerFn};
