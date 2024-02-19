@@ -136,9 +136,15 @@ const listetaches = async (employeid,etat) => {
 const updateEtat = async (id, newEtat) => {
   try {
     const newEtatInt=parseInt(newEtat);
+    var horaireActuel = "";
+    console.log("newEtatInt : "+newEtatInt);
+    if(newEtatInt===3)
+    {
+      horaireActuel=getHoraireEnCours();
+    }
     const updatedtache = await tacheModel.findByIdAndUpdate(
       id,
-      { $set: { etat: newEtatInt } },
+      { $set: { etat: newEtatInt,horairefin:horaireActuel } },
       { new: true }
     );
 
@@ -152,6 +158,12 @@ const updateEtat = async (id, newEtat) => {
     return { status: false, message: "Erreur lors de la mise à jour de l'état du updatedtache" };
   }
 };
+const getHoraireEnCours = () => {
+  const now = new Date();
+  const horaireEnCours = now.toLocaleTimeString();
+  return horaireEnCours;
+};
+
 module.exports = {
   getListtache,creertache,listetaches,updateEtat
 };
