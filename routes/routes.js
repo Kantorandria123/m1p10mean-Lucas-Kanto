@@ -12,6 +12,7 @@ var preferenceEmployeControlleur = require('../src/preference_employe/Preference
 var paiementControlleur = require('../src/paiement/PaiementControlleur');
 const emailController = require('../src/email/EmailController'); 
 var tacheControlleur = require('../src/tache/TacheControlleur');
+var managerControlleur = require('../src/manager/ManagerControlleur');
 
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
@@ -62,4 +63,8 @@ router.post('/email/send', emailController.sendEmailControllerFn);
 router.route('/tache/creer').post(tacheControlleur.creerTacheControlleur);
 router.route('/tache/liste/:employeid/:etat').get(tacheControlleur.listetacheControllerFn);
 router.route('/tache/modifieretat/:id/:etat').get(tacheControlleur.updateEtatControllerFn);
+
+/*Manager*/ 
+router.route('/manager/login').post(managerControlleur.loginmanagereControllerFn);
+router.route('/manager/managertoken').post(managerControlleur.managereByTokenControlleur);
 module.exports = router;
