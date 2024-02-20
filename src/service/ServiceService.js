@@ -26,7 +26,7 @@ const createService = async (services) => {
 
       const insertedId = result._id;
       console.log('insertId :' +insertedId);
-      resolveContent({success: true, id: insertedId});
+      resolve({success: true, id: insertedId});
     })
     .catch(error => {
       console.error('Save failed', error);
@@ -34,8 +34,21 @@ const createService = async (services) => {
     });
   });
 }
+
+const updateServiceById = async (serviceId, updateData) => {
+  try {
+    const updateService = await serviceModel.findByIdAndUpdate(serviceId, updateData, { new: true});
+    if (!updateService) {
+      return { status: false, message: "Aucun service trouvé avec cet identifiant pour la mise à jour"}
+    }
+    return { status: true, message: "Employé mis à jour avec succès",updateService};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la mise à jour du service"};
+  }
+};
   
-  module.exports = { getListService,createService};
+  module.exports = { getListService,createService,updateServiceById};
   
 
 

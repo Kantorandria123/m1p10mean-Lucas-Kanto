@@ -20,12 +20,17 @@ router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
+
+/*manager*/
+router.route('/manager/login').post(managerControlleur.loginManagerControllerFn);
+
 /*role*/ 
 // router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
 router.route('/service/creer').post(serviceControlleur.creerServiceController);
+router.route('/service/serviceupdate/:serviceId').patch(serviceControlleur.updateServiceControllerFn);
 
 /*employe*/ 
 router.route('/employe/create').post(employeControlleur.createemployeControllerFn);
