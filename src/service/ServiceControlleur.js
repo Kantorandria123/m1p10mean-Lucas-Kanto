@@ -13,6 +13,22 @@ const getListServiceControlleur = async (req, res) => {
       res.send({ status: false, message: "Erreur lors de la récupération de la liste des services" });
     }
   };
+
+const creerServiceController = async (req, res) => {
+  try{
+    console.log(req.body);
+    var result = await serviceService.createService(req.body);
+    console.log(result);
+    if(result) {
+      res.send({ "status": true, "message": "Service créer avec succès", "id": result._id});
+    } else {
+      res.send({ "status": false, "message": "Error creating service"});
+    }
+  } catch (err) {
+    console.log(err);
+    res.send({"status": false, "message": "Error creating service"});
+  }
+}
   
-  module.exports = { getListServiceControlleur };
+  module.exports = { getListServiceControlleur,creerServiceController };
   

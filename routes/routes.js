@@ -28,6 +28,7 @@ router.route('/manager/login').post(managerControlleur.loginManagerControllerFn)
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
+router.route('/service/creer').post(serviceControlleur.creerServiceController);
 
 /*employe*/ 
 router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeControlleur);
