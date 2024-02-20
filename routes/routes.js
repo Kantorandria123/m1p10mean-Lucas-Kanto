@@ -21,11 +21,7 @@ router.route('/client/getbytoken').post(clientController.getClientByTokenControl
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
 
-/*manager*/
-router.route('/manager/login').post(managerControlleur.loginManagerControllerFn);
 
-/*role*/ 
-// router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
