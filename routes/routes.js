@@ -25,6 +25,7 @@ router.route('/client/updateargent').post(clientController.updateArgentcontrolle
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
+router.route('/service/creer').post(serviceControlleur.creerServiceController);
 
 /*employe*/ 
 router.route('/employe/create').post(employeControlleur.createemployeControllerFn);
