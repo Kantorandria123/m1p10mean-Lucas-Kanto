@@ -47,8 +47,22 @@ const updateServiceById = async (serviceId, updateData) => {
     return {status: false, message: "Erreur lors de la mise à jour du service"};
   }
 };
+
+const  deleteServiceById = async (serviceId) => {
+  try {
+    const deletedService = await serviceModel.findByIdAndDelete(serviceId);
+    if(!deletedService) {
+      return { status: false, message: "Aucun service trouvé avec cet identifiant pour la suppression" };
+    }
+    return {status: true, message: "Employé supprimé avec succès",deletedService};
+
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la suppression du service" };
+  }
+}
   
-  module.exports = { getListService,createService,updateServiceById};
+  module.exports = { getListService,createService,updateServiceById,deleteServiceById};
   
 
 

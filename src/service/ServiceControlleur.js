@@ -46,6 +46,21 @@ const updateServiceControllerFn = async (req, res) => {
     res.status(500).send({status: false, message: "Erreur lors de la mise à jour du service par ID"})
   }
 }
-  
-  module.exports = { getListServiceControlleur,creerServiceController,updateServiceControllerFn };
+
+const deleteServiceByIdControllerFn = async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+    const result = await serviceService.deleteServiceById(serviceId);
+
+    if(result.status) {
+      res.send({ status: true, message: result.message, deletedService: result.deletedService});
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la suppression du service par ID" });
+  }
+}
+  module.exports = { getListServiceControlleur,creerServiceController,updateServiceControllerFn,deleteServiceByIdControllerFn };
   

@@ -21,12 +21,18 @@ router.route('/client/getbytoken').post(clientController.getClientByTokenControl
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
 
+/*manager*/
+// router.route('/manager/login').post(managerControlleur.loginManagerControllerFn);
+// router.route('/manager/managertoken').post(managerControlleur.getManagerByTokenController);
+/*role*/ 
+// router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
 
 
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
 router.route('/service/creer').post(serviceControlleur.creerServiceController);
 router.route('/service/serviceupdate/:serviceId').patch(serviceControlleur.updateServiceControllerFn);
+router.route('/service/supprimer/:id').delete(serviceControlleur.deleteServiceByIdControllerFn);
 
 /*employe*/ 
 router.route('/employe/create').post(employeControlleur.createemployeControllerFn);
