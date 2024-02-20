@@ -77,4 +77,5 @@ router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/im
 
 /*Dépense*/
 router.route('/depense/creer').post(depenseControlleur.creerDepenseControlleurFn);
+router.route('/depense/listedepense').get(depenseControlleur.getListeDepenseControlleur);
 module.exports = router;

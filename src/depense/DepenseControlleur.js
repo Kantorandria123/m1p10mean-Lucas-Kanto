@@ -16,4 +16,18 @@ const creerDepenseControlleurFn = async (req, res) => {
     }
 }
 
-module.exports = {creerDepenseControlleurFn};
+const getListeDepenseControlleur = async (req, res) => {
+    try {
+        const result = await depenseService.getListeDepense();
+        if (result.status) {
+            res.send({ status: true, message: result.message, depenses: result.depenses });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+      res.send({ status: false, message: "Erreur lors de la récupération de la liste des depenses" });
+    }
+};
+
+module.exports = {creerDepenseControlleurFn,getListeDepenseControlleur};

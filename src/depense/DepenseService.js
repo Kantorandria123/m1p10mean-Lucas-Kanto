@@ -22,4 +22,14 @@ const createDepense = async (depenses, req) => {
     });
 }
 
-module.exports = {createDepense};
+const getListeDepense = async () => {
+    try {
+        const depenses = await depenseModel.find({});
+        return {status: true, message: "Liste des dépenses récupérée avec succès", depenses };
+    } catch (error) {
+        console.error(error);
+        return {status: false, message: "Erreur lors de la récupération de la liste des dépenses"};
+    }
+};
+
+module.exports = {createDepense,getListeDepense};
