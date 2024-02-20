@@ -41,7 +41,7 @@ const updateServiceById = async (serviceId, updateData) => {
     if (!updateService) {
       return { status: false, message: "Aucun service trouvé avec cet identifiant pour la mise à jour"}
     }
-    return { status: true, message: "Employé mis à jour avec succès",updateService};
+    return { status: true, message: "Service mis à jour avec succès",updateService};
   } catch (error) {
     console.error(error);
     return {status: false, message: "Erreur lors de la mise à jour du service"};
