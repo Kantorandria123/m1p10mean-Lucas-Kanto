@@ -29,6 +29,23 @@ const creerServiceController = async (req, res) => {
     res.send({"status": false, "message": "Error creating service"});
   }
 }
+
+const updateServiceControllerFn = async (req, res) => {
+  try {
+    const serviceId = req.params.serviceId;
+    const newData = req.body;
+
+    const result = await serviceService.updateServiceById(serviceId, newData);
+    if (result.status) {
+      res.send({status: true, message: result.message,updateService: result.updateService});
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({status: false, message: "Erreur lors de la mise à jour du service par ID"})
+  }
+}
   
-  module.exports = { getListServiceControlleur,creerServiceController };
+  module.exports = { getListServiceControlleur,creerServiceController,updateServiceControllerFn };
   
