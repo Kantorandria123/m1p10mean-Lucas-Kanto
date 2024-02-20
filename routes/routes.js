@@ -15,6 +15,7 @@ var paiementControlleur = require('../src/paiement/PaiementControlleur');
 const emailController = require('../src/email/EmailController'); 
 var tacheControlleur = require('../src/tache/TacheControlleur');
 var managerControlleur = require('../src/manager/ManagerControlleur');
+var depenseControlleur = require('../src/depense/DepenseControlleur');
 
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
@@ -74,4 +75,6 @@ router.route('/manager/managertoken').post(managerControlleur.managereByTokenCon
 
 router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')));
 
+/*Dépense*/
+router.route('/depense/creer').post(depenseControlleur.creerDepenseControlleurFn);
 module.exports = router;
