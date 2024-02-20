@@ -10,30 +10,33 @@ const getListService = async () => {
     }
   };
 
-const createService = async (services) => {
-  return new Promise((resolve, reject) =>{
-  var serviceData = new serviceModel();
-  serviceData.nom = services.nom;
-  serviceData.description = services.description;
-  serviceData.image = services.image;
-  serviceData.prix = services.prix;
-  serviceData.duree = services.duree;
-  serviceData.commission = services.commission;
-
-  serviceData.save()
-    .then(result => {
-      console.log('Save successfull');
-
-      const insertedId = result._id;
-      console.log('insertId :' +insertedId);
-      resolve({success: true, id: insertedId});
-    })
-    .catch(error => {
-      console.error('Save failed', error);
-      reject({success: false, error: error});
+  const createService = async (services, req) => {
+    return new Promise((resolve, reject) => {
+      const serviceData = new serviceModel();
+      serviceData.nom = services.nom;
+      serviceData.description = services.description;
+      serviceData.prix = services.prix;
+      serviceData.duree = services.duree;
+      serviceData.commission = services.commission;
+  
+      if (req.file) {
+        serviceData.image = req.protocol + '://' + req.get('host') + '/uploads/images/' + req.file.filename; 
+    }
+  
+      serviceData.save()
+        .then(result => {
+          console.log('Save successful');
+          const insertedId = result._id;
+          console.log('insertId :' + insertedId);
+          resolve({ success: true, id: insertedId });
+        })
+        .catch(error => {
+          console.error('Save failed', error);
+          reject({ success: false, error: error });
+        });
     });
-  });
-}
+  }
+  
 
 const updateServiceById = async (serviceId, updateData) => {
   try {

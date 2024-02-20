@@ -3,27 +3,27 @@ const mongoose = require('mongoose');
 const serviceSchema = new mongoose.Schema({
   nom: {
     type: String,
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   prix: {
     type: Number,
-    required: true,
+    required: false,
   },
   duree: {
     type: Number,
-    required: true,
+    required: false,
   },
   commission: {
     type: Number,
-    required: true,
+    required: false,
   },
 });
 

@@ -1,6 +1,8 @@
 var express = require('express');
 
 const router = express.Router();
+const path = require('path');
+const upload = require('../src/config/multerConfig'); 
 
 var clientController = require('../src/client/ClientControlleur');
 var serviceControlleur = require('../src/service/ServiceControlleur');
@@ -20,17 +22,9 @@ router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
-
-/*manager*/
-// router.route('/manager/login').post(managerControlleur.loginManagerControllerFn);
-// router.route('/manager/managertoken').post(managerControlleur.getManagerByTokenController);
-/*role*/ 
-// router.route('/role/lesroles').get(roleControlleur.listeRoleControllerFn);
-
-
 /*service*/ 
 router.route('/service/lesservices').get(serviceControlleur.getListServiceControlleur);
-router.route('/service/creer').post(serviceControlleur.creerServiceController);
+router.route('/service/creer').post(upload,serviceControlleur.creerServiceController);
 router.route('/service/serviceupdate/:serviceId').patch(serviceControlleur.updateServiceControllerFn);
 router.route('/service/supprimer/:id').delete(serviceControlleur.deleteServiceByIdControllerFn);
 
@@ -77,4 +71,7 @@ router.route('/tache/modifieretat/:id/:etat').get(tacheControlleur.updateEtatCon
 /*Manager*/ 
 router.route('/manager/login').post(managerControlleur.loginmanagereControllerFn);
 router.route('/manager/managertoken').post(managerControlleur.managereByTokenControlleur);
+
+router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')));
+
 module.exports = router;

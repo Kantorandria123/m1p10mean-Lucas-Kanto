@@ -14,21 +14,22 @@ const getListServiceControlleur = async (req, res) => {
     }
   };
 
-const creerServiceController = async (req, res) => {
-  try{
-    console.log(req.body);
-    var result = await serviceService.createService(req.body);
-    console.log(result);
-    if(result) {
-      res.send({ "status": true, "message": "Service créer avec succès", "id": result._id});
-    } else {
-      res.send({ "status": false, "message": "Error creating service"});
+  const creerServiceController = async (req, res) => {
+    try {
+      console.log(req.body);
+      var result = await serviceService.createService(req.body, req); // Pass req as a parameter
+      console.log(result);
+      if (result) {
+        res.send({ "status": true, "message": "Service créé avec succès", "id": result._id });
+      } else {
+        res.send({ "status": false, "message": "Erreur lors de la création du service" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.send({ "status": false, "message": "Erreur lors de la création du service" });
     }
-  } catch (err) {
-    console.log(err);
-    res.send({"status": false, "message": "Error creating service"});
   }
-}
+  
 
 const updateServiceControllerFn = async (req, res) => {
   try {
