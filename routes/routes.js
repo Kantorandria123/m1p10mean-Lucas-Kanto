@@ -37,6 +37,7 @@ router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenC
 router.route('/employe/employebyId/:employeeId').get(employeControlleur.employeeByIdControllerFn);
 router.route('/employe/employeupdate/:employeeId').patch(employeControlleur.updateEmployeeByIdControllerFn);
 router.route('/employe/supprimer/:id').delete(employeControlleur.deleteEmployeeByIdControllerFn);
+router.route('/employe/tempsmoyentravail').get(employeControlleur.getTempsMoyenTravailEmployesControllerFn);
 
 /*rendezvous*/ 
 router.route('/rendezvous/creer').post(rendezvousControlleur.creerRendevousControlleur);

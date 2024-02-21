@@ -164,3 +164,30 @@ db.offrespeciales.aggregate([
 
 ng add @angular/material
 
+
+db.employes.aggregate([
+  {
+    $project: {
+      _id: 1,
+      nom: 1,
+      heureTravaillee: { $subtract: ["$heureFin", "$heuredebut"] }
+    }
+  },
+  {
+    $group: {
+      _id: "$_id",
+      nom: { $first: "$nom" },
+      totalTempsTravaille: { $sum: "$heureTravaillee" },
+      nbJoursTravailles: { $sum: 1 }
+    }
+  },
+  {
+    $project: {
+      _id: 1,
+      nom: 1,
+      tempsTotalTravailEnHeures: "$totalTempsTravaille",
+      nbJoursTravailles: 1,
+      tempsMoyenTravailParJour: { $divide: ["$totalTempsTravaille", "$nbJoursTravailles"] }
+    }
+  }
+]);

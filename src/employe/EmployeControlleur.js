@@ -105,4 +105,17 @@ const deleteEmployeeByIdControllerFn = async (req, res) => {
     res.status(500).send({ status: false, message: "Erreur lors de la suppression de l'employé par ID" });
   }
 };
-module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn,createemployeControllerFn,deleteEmployeeByIdControllerFn};
+const getTempsMoyenTravailEmployesControllerFn = async (req, res) => {
+  try {
+    const result = await employeService.getTempsMoyenTravailEmployes();
+    if (result.status) {
+      res.send({ status: true, message: result.message, employeList: result.employeList });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send({ status: false, message: "Erreur lors de la récupération de la liste des employes" });
+  }
+};
+module.exports = { getlisteEmployeControlleur,loginEmployeeControllerFn,employeeByTokenControlleur,employeeByIdControllerFn,updateEmployeeByIdControllerFn,createemployeControllerFn,deleteEmployeeByIdControllerFn,getTempsMoyenTravailEmployesControllerFn};

@@ -146,7 +146,33 @@ const deleteEmployeById = async (employeeId) => {
     return { status: false, message: "Erreur lors de la suppression de l'employé" };
   }
 };
-
+const getTempsMoyenTravailEmployes = async () => {
+  try {
+    const employeList = await employeModel.aggregate([
+      {
+        $project: {
+          _id:1,
+          nom: 1,
+          email:1,
+          heures_travail_total: { $subtract: ["$heureFin", "$heuredebut"] },
+          nbJourTravailSemaine: 1,
+          nbJourTravailMois: 1
+        }
+      },
+      {
+        $addFields: {
+          temps_travail_moyen_par_jour: { $divide: ["$heures_travail_total", 1] },
+          temps_travail_moyen_par_semaine: { $divide: [ { $multiply: ["$heures_travail_total", "$nbJourTravailSemaine"] }, 1 ] },
+          temps_travail_moyen_par_mois:{ $divide: [ { $multiply: ["$heures_travail_total", "$nbJourTravailMois"] }, 1 ] }
+        }
+      }
+    ]);
+    return {status: true, message: "Liste des tempsmoyen employe récupérée avec succès", employeList};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la récupération de la liste des employelist par tempsmoyen"};
+  }
+};
 function getCurrentDateTime() {
   const currentDateTime = new Date();
   const date = currentDateTime.toISOString().split('T')[0];
@@ -157,5 +183,5 @@ function getCurrentDateTime() {
 
  
 module.exports = {
-  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById,updateEmployeeById,createEmployeDBService,deleteEmployeById
+  getListEmploye,loginEmployeeDBService,getEmployeeByToken,getEmployeeById,updateEmployeeById,createEmployeDBService,deleteEmployeById,getTempsMoyenTravailEmployes
 };
