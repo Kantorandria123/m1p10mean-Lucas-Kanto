@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const employeSchema = new mongoose.Schema({
   nom: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
-    required: true,
+    required: false,
   },
   mdp: {
     type: String,
