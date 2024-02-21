@@ -16,6 +16,9 @@ const emailController = require('../src/email/EmailController');
 var tacheControlleur = require('../src/tache/TacheControlleur');
 var managerControlleur = require('../src/manager/ManagerControlleur');
 var depenseControlleur = require('../src/depense/DepenseControlleur');
+var depotControlleur = require('../src/depot/DepotControlleur');
+var factureControlleur = require('../src/facture/FactureControlleur');
+
 
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
@@ -79,4 +82,9 @@ router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/im
 /*Dépense*/
 router.route('/depense/creer').post(depenseControlleur.creerDepenseControlleurFn);
 router.route('/depense/listedepense').get(depenseControlleur.getListeDepenseControlleur);
+
+/*Facture*/
+router.route('/facture/creer').post(factureControlleur.createfactureControllerFn);
+router.route('/facture/lesfactures/:clientId/:etat').get(factureControlleur.getlistefactureControlleur);
+
 module.exports = router;
