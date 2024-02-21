@@ -24,6 +24,22 @@ const employeSchema = new mongoose.Schema({
   token: {
     type: String,
   },
+  heuredebut: {
+    type: Number, 
+    required: false,
+  },
+  heureFin: {
+    type: Number, 
+    required: false,
+  },
+  nbJourTravailSemaine: {
+    type: Number, 
+    required: false,
+  },
+  nbJourTravailMois: {
+    type: Number, 
+    required: false,
+  }
 });
 
 const EmployeModel = mongoose.model('Employe', employeSchema);
