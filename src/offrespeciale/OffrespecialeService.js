@@ -7,8 +7,6 @@ const getListOffrespecial = async () => {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
     const day = String(currentDate.getDate()).padStart(2, '0'); 
     const daty = `${year}-${month}-${day}`;
-    console.log("daty "+daty);
-
     const offrespecialList = await OffrespecialeModel.aggregate([
       {
         $addFields: {

@@ -14,6 +14,7 @@ const emailController = require('../src/email/EmailController');
 var tacheControlleur = require('../src/tache/TacheControlleur');
 var managerControlleur = require('../src/manager/ManagerControlleur');
 var depotControlleur = require('../src/depot/DepotControlleur');
+var factureControlleur = require('../src/facture/FactureControlleur');
 
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
@@ -73,5 +74,9 @@ router.route('/tache/modifieretat/:id/:etat').get(tacheControlleur.updateEtatCon
 
 /*dépôt*/
 router.route('/depot/creer').post(depotControlleur.creerDepotControllerFn);
+
+/*Facture*/
+router.route('/facture/creer').post(factureControlleur.createfactureControllerFn);
+router.route('/facture/lesfactures/:clientId/:etat').get(factureControlleur.getlistefactureControlleur);
 
 module.exports = router;
