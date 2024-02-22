@@ -20,4 +20,21 @@ const creerDepot = (depot) => {
     });
 }
 
-module.exports = {creerDepot};
+const getListedepot = async () => {
+    try {
+        const depotList = await depotModel.find({etat: 1});
+        if (!depotList) {
+            return { status: false, message: "Aucun dépôt actif trouvé" };
+        }
+        return {
+            status: true,
+            message: "Liste des dépôts actifs récupérée avec succès",
+            depotList,
+        };
+    } catch (error) {
+        console.error(error);
+        return { status: false, message: "Erreur lors de la récupération de la liste des dépôts" };
+    }
+}
+
+module.exports = {creerDepot,getListedepot};

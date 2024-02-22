@@ -16,4 +16,21 @@ const creerDepotControllerFn = async (req, res) => {
     }
 };
 
-module.exports = {creerDepotControllerFn};
+const getlistedepotControllerFn = async (req, res) => {
+    try {
+       
+        const result = await depotService.getListedepot();
+
+        if(result.status) {
+            res.send({ status: true, message: result.message, depotList: result.depotList });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+    res.send({ status: false, message: "Erreur lors de la récupération de la liste des dépôt" });
+    }
+};
+
+
+module.exports = {creerDepotControllerFn,getlistedepotControllerFn};
