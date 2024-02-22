@@ -33,7 +33,7 @@ const getlistedepotControllerFn = async (req, res) => {
 };
 
 
-const updatedDepotControllerFn = async (req, res) => {
+const updatedEtatDepotControllerFn = async (req, res) => {
     try {
         const depotId = req.params.id;
         const newEtat = req.params.etat;
@@ -58,4 +58,20 @@ const updatedDepotControllerFn = async (req, res) => {
 }
 
 
-module.exports = {creerDepotControllerFn,getlistedepotControllerFn,updatedDepotControllerFn};
+const updateArgentDepotControllerFn = async (req, res) => {
+    try {
+        console.log("req.body "+req.body);
+        const result = await depotService.updateDepotArgentByClientId(req.body);
+
+        if (result.status) {
+            res.send({ status: true, message: result.message, updateArgent: result.updateArgent });
+        } else {
+            res.send({ status: false, message: result.message });
+          }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'état update argent" });
+      }
+}
+
+module.exports = {creerDepotControllerFn,getlistedepotControllerFn,updatedEtatDepotControllerFn,updateArgentDepotControllerFn};

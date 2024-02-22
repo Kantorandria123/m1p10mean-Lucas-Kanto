@@ -89,5 +89,6 @@ router.route('/facture/lesfactures/:clientId/:etat').get(factureControlleur.getl
 /*dépôt*/
 router.route('/depot/creer').post(depotControlleur.creerDepotControllerFn);
 router.route('/depot/liste').get(depotControlleur.getlistedepotControllerFn);
-router.route('/depot/modifieretat/:id/:etat').get(depotControlleur.updatedDepotControllerFn);
+router.route('/depot/modifieretat/:id/:etat').get(depotControlleur.updatedEtatDepotControllerFn);
+router.route('/depot/updateargent').post(depotControlleur.updateArgentDepotControllerFn);
 module.exports = router;

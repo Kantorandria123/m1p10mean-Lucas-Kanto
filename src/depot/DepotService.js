@@ -1,3 +1,4 @@
+const clientModel = require('../client/ClientModel');
 const depotModel = require('./DepotModel');
 
 const creerDepot = (depot) => {
@@ -56,4 +57,29 @@ const updateEtatDepotById = async (id,newEtat) => {
     }
 }
 
-module.exports = {creerDepot,getListedepot,updateEtatDepotById};
+const updateDepotArgentByClientId = async (clientDetails) => {
+    try {
+        const id = clientDetails._id;
+        const newArgent = Number(clientDetails.argent);
+        const currentClient = await clientModel.findById(id);
+        if(!currentClient) {
+            return { status: false, message: "Client introuvable" };
+        }
+        
+        const updateArgent = await clientModel.findByIdAndUpdate(
+            id,
+            { $inc: { argent: +newArgent } },
+            { new: true }
+        );
+
+        if(!updateArgent) {
+            return { status: false, message: "Dépot ARGENT introuvable" };
+        }
+        return { status: true, message: "État du dépôt ARGENT mis à jour avec succès", updateArgent };
+    } catch (error) {
+        console.error(error);
+        return { status: false, message: "Erreur lors de la mise à jour de l'état du dépot ARGENT" };
+      }
+}
+
+module.exports = {creerDepot,getListedepot,updateEtatDepotById,updateDepotArgentByClientId};
