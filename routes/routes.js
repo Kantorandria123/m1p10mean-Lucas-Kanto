@@ -95,4 +95,6 @@ router.route('/depot/updateargent').post(depotControlleur.updateArgentDepotContr
 /*Statistique*/ 
 router.route('/statistique/chiffreAfaires/jour').get(factureControlleur.geChiffresAffairesParjourControllerFn);
 router.route('/statistique/chiffreAfaires/mois').get(factureControlleur.geChiffresAffairesParmoisControllerFn);
+router.route('/statistique/nombrereservation/jour').get(rendezvousControlleur.nombreReservationParjourControllerFn);
+router.route('/statistique/nombrereservation/mois').get(rendezvousControlleur.nombreReservationParmoisControllerFn);
 module.exports = router;

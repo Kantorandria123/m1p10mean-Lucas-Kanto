@@ -307,6 +307,125 @@ const historiqueRendezvousByClient = async (clientId) => {
     return { status: false, message: "Erreur lors de la récupération de la liste des rendez-vous par client" };
   }
 };
+const nombreResevationParjour = async () => {
+  try {
+    const rendezvousList = await RendezvousModel.aggregate([
+      {
+        $project: {
+            dayOfWeek: {
+                $let: {
+                    vars: {
+                        parts: { $split: ["$daty", "-"] },
+                        year: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 0] } },
+                        month: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 1] } },
+                        day: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 2] } }
+                    },
+                    in: { $dayOfWeek: { $dateFromParts: { year: "$$year", month: "$$month", day: "$$day" } } }
+                }
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$dayOfWeek",
+            count: { $sum: 1 }
+        }
+    },
+    {
+        $match: {
+            count: { $gt: 0 } // Filtrer les jours avec des rendez-vous
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            jourint: "$_id",
+            jour: {
+                $switch: {
+                    branches: [
+                        { case: { $eq: ["$_id", 1] }, then: "Dimanche" },
+                        { case: { $eq: ["$_id", 2] }, then: "Lundi" },
+                        { case: { $eq: ["$_id", 3] }, then: "Mardi" },
+                        { case: { $eq: ["$_id", 4] }, then: "Mercredi" },
+                        { case: { $eq: ["$_id", 5] }, then: "Jeudi" },
+                        { case: { $eq: ["$_id", 6] }, then: "Vendredi" },
+                        { case: { $eq: ["$_id", 7] }, then: "Samedi" }
+                    ],
+                    default: "Jour invalide"
+                }
+            },
+            count: 1
+        }
+    }
+    ]);
+    return {status: true, message: "Liste des chiffreList récupérée avec succès", rendezvousList};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la récupération de la liste des rendezvousList par tempsmoyen"};
+  }
+};
+const nombreResevationParmois = async () => {
+  try {
+    const rendezvousList = await RendezvousModel.aggregate([
+      {
+        $project: {
+            month: {
+                $let: {
+                    vars: {
+                        parts: { $split: ["$daty", "-"] },
+                        year: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 0] } },
+                        month: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 1] } },
+                        day: { $toInt: { $arrayElemAt: [{ $split: ["$daty", "-"] }, 2] } }
+                    },
+                    in: { $month: { $dateFromParts: { year: "$$year", month: "$$month", day: "$$day" } } }
+                }
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$month",
+            count: { $sum: 1 }
+        }
+    },
+    {
+        $match: {
+            count: { $gt: 0 } // Filtrer les jours avec des rendez-vous
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            moisint: "$_id",
+            mois: {
+                $switch: {
+                    branches: [
+                         { case: { $eq: ["$_id", 1] }, then: "Janvier" },
+		                { case: { $eq: ["$_id", 2] }, then: "Février" },
+		                { case: { $eq: ["$_id", 3] }, then: "Mars" },
+		                { case: { $eq: ["$_id", 4] }, then: "Avril" },
+		                { case: { $eq: ["$_id", 5] }, then: "Mai" },
+		                { case: { $eq: ["$_id", 6] }, then: "Juin" },
+		                { case: { $eq: ["$_id", 7] }, then: "Juillet" },
+		                { case: { $eq: ["$_id", 8] }, then: "Août" },
+		                { case: { $eq: ["$_id", 9] }, then: "Septembre" },
+		                { case: { $eq: ["$_id", 10] }, then: "Octobre" },
+		                { case: { $eq: ["$_id", 11] }, then: "Novembre" },
+		                { case: { $eq: ["$_id", 12] }, then: "Décembre" }
+                    ],
+                    default: "mois invalide"
+                }
+            },
+            count: 1
+        }
+    }
+    ]);
+    return {status: true, message: "Liste des chiffreList récupérée avec succès", rendezvousList};
+  } catch (error) {
+    console.error(error);
+    return {status: false, message: "Erreur lors de la récupération de la liste des rendezvousList par tempsmoyen"};
+  }
+};
 module.exports = {
-  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById,historiqueRendezvousByClient
+  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById,historiqueRendezvousByClient,nombreResevationParjour,nombreResevationParmois
 };

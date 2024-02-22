@@ -132,6 +132,32 @@ const updateEtatRendezVousControllerFn = async (req, res) => {
     res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'état du rendez-vous" });
   }
 };
+const nombreReservationParjourControllerFn = async (req, res) => {
+  try {
+    const result = await rendezvousService.nombreResevationParjour();
+    if (result.status) {
+      res.send({ status: true, message: result.message, rendezvousList: result.rendezvousList });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send({ status: false, message: "Erreur lors de la récupération de la liste des chiffreList" });
+  }
+};
+const nombreReservationParmoisControllerFn = async (req, res) => {
+  try {
+    const result = await rendezvousService.nombreResevationParmois();
+    if (result.status) {
+      res.send({ status: true, message: result.message, rendezvousList: result.rendezvousList });
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send({ status: false, message: "Erreur lors de la récupération de la liste des chiffreList" });
+  }
+};
 module.exports = {
   listeRendezvousControllerFn,
   creerRendevousControlleur,
@@ -139,5 +165,7 @@ module.exports = {
   listeRendezvousNotifierControlleurFn,
   listeRendezvousByEmployeeControllerFn,
   updateEtatRendezVousControllerFn,
-  historiqueRendezvousByClientControllerFn
+  historiqueRendezvousByClientControllerFn,
+  nombreReservationParjourControllerFn,
+  nombreReservationParmoisControllerFn
 };
