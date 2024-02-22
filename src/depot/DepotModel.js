@@ -10,7 +10,7 @@ const depotSchema = new mongoose.Schema({
         required: true,
     },
     etat: {
-        type: String,
+        type: Number,
         required: true,
     },
 });
