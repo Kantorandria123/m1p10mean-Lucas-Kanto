@@ -91,4 +91,8 @@ router.route('/depot/creer').post(depotControlleur.creerDepotControllerFn);
 router.route('/depot/liste').get(depotControlleur.getlistedepotControllerFn);
 router.route('/depot/modifieretat/:id/:etat').get(depotControlleur.updatedEtatDepotControllerFn);
 router.route('/depot/updateargent').post(depotControlleur.updateArgentDepotControllerFn);
+
+/*Statistique*/ 
+router.route('/statistique/chiffreAfaires/jour').get(factureControlleur.geChiffresAffairesParjourControllerFn);
+router.route('/statistique/chiffreAfaires/mois').get(factureControlleur.geChiffresAffairesParmoisControllerFn);
 module.exports = router;

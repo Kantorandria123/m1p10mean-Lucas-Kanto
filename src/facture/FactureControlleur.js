@@ -34,7 +34,32 @@ const getlistefactureControlleur = async (req, res) => {
       res.send({ status: false, message: "Erreur lors de la récupération de la liste des factures" });
     }
   };
- 
+  const geChiffresAffairesParjourControllerFn = async (req, res) => {
+    try {
+      const result = await factureService.chiffresAffairesParjour();
+      if (result.status) {
+        res.send({ status: true, message: result.message, chiffreList: result.chiffreList });
+      } else {
+        res.send({ status: false, message: result.message });
+      }
+    } catch (error) {
+      console.error(error);
+      res.send({ status: false, message: "Erreur lors de la récupération de la liste des chiffreList" });
+    }
+  };
+  const geChiffresAffairesParmoisControllerFn = async (req, res) => {
+    try {
+      const result = await factureService.chiffresAffairesParmois();
+      if (result.status) {
+        res.send({ status: true, message: result.message, chiffreList: result.chiffreList });
+      } else {
+        res.send({ status: false, message: result.message });
+      }
+    } catch (error) {
+      console.error(error);
+      res.send({ status: false, message: "Erreur lors de la récupération de la liste des chiffreList" });
+    }
+  };
 
 
-module.exports = { createfactureControllerFn,getlistefactureControlleur };
+module.exports = { createfactureControllerFn,getlistefactureControlleur,geChiffresAffairesParjourControllerFn,geChiffresAffairesParmoisControllerFn };
