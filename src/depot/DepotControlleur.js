@@ -33,4 +33,29 @@ const getlistedepotControllerFn = async (req, res) => {
 };
 
 
-module.exports = {creerDepotControllerFn,getlistedepotControllerFn};
+const updatedDepotControllerFn = async (req, res) => {
+    try {
+        const depotId = req.params.id;
+        const newEtat = req.params.etat;
+        console.log("depotid :"+depotId);
+        console.log("newEtat :"+newEtat);
+        if(!depotId || !newEtat) {
+            return res.status(400).send({ status: false, message: "Paramètres manquants dans la requête." });
+        }
+
+        const result = await depotService.updateEtatDepotById(depotId, newEtat);
+
+        if(result.status) {
+            res.send({ status: true, message: result.message, updatedDepot: result.updatedDepot });
+
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: false, message: "Erreur lors de la mise à jour de l'état du dépôt" });
+    }
+}
+
+
+module.exports = {creerDepotControllerFn,getlistedepotControllerFn,updatedDepotControllerFn};

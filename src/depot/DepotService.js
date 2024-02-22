@@ -37,4 +37,23 @@ const getListedepot = async () => {
     }
 }
 
-module.exports = {creerDepot,getListedepot};
+const updateEtatDepotById = async (id,newEtat) => {
+    try {
+        const newEtatInt=parseInt(newEtat);
+        const updatedDepot = await depotModel.findByIdAndUpdate (
+            id,
+            { $set: { etat: newEtatInt } },
+            { new: true }
+        );
+
+        if(!updatedDepot) {
+            return { status: false, message: "Dépôt introuvable" };
+        }
+        return { status: true, message: "État du dépôt mis à jour avec succès", updatedDepot };
+    } catch (error) {
+        console.error(error);
+        return { status: false, message: "Erreur lors de la mise à jour de l'état du dépôt" };
+    }
+}
+
+module.exports = {creerDepot,getListedepot,updateEtatDepotById};
