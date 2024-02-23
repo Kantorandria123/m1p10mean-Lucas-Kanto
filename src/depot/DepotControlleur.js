@@ -37,8 +37,6 @@ const updatedEtatDepotControllerFn = async (req, res) => {
     try {
         const depotId = req.params.id;
         const newEtat = req.params.etat;
-        console.log("depotid :"+depotId);
-        console.log("newEtat :"+newEtat);
         if(!depotId || !newEtat) {
             return res.status(400).send({ status: false, message: "Paramètres manquants dans la requête." });
         }

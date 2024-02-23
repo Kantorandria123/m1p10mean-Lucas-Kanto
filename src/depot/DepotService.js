@@ -61,10 +61,7 @@ const updateDepotArgentByClientId = async (clientDetails) => {
     try {
         const id = clientDetails._id;
         const newArgent = Number(clientDetails.argent);
-        const currentClient = await clientModel.findById(id);
-        if(!currentClient) {
-            return { status: false, message: "Client introuvable" };
-        }
+      
         
         const updateArgent = await clientModel.findByIdAndUpdate(
             id,
