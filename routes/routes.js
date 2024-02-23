@@ -18,7 +18,7 @@ var managerControlleur = require('../src/manager/ManagerControlleur');
 var depenseControlleur = require('../src/depense/DepenseControlleur');
 var factureControlleur = require('../src/facture/FactureControlleur');
 var depotControlleur = require('../src/depot/DepotControlleur');
-
+var beneficeControlleur = require('../src/benefice/BeneficeControlleur');
 /*client*/ 
 router.route('/client/login').post(clientController.loginUserControllerFn);
 router.route('/client/create').post(clientController.createClientControllerFn);
@@ -97,4 +97,6 @@ router.route('/statistique/chiffreAfaires/jour').get(factureControlleur.geChiffr
 router.route('/statistique/chiffreAfaires/mois').get(factureControlleur.geChiffresAffairesParmoisControllerFn);
 router.route('/statistique/nombrereservation/jour').get(rendezvousControlleur.nombreReservationParjourControllerFn);
 router.route('/statistique/nombrereservation/mois').get(rendezvousControlleur.nombreReservationParmoisControllerFn);
+router.route('/statistique/benefice/mois').get(beneficeControlleur.getBeneficeParmoisControllerFn);
+
 module.exports = router;
