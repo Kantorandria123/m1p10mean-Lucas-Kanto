@@ -6,7 +6,7 @@ const depenseSchema = new mongoose.Schema({
         required: false,
     },
     montant: {
-        type: String,
+        type: Number,
         required:false,
     },
     date: {
