@@ -67,6 +67,7 @@ router.route('/paiement/payer/:id/:etat').get(paiementControlleur.updateEtatPaie
 
 /*email*/
 router.post('/email/send', emailController.sendEmailControllerFn);
+router.get('/email/notification', rendezvousControlleur.clientsNotifierControllerFn);
 
 /*Tache*/
 router.route('/tache/creer').post(tacheControlleur.creerTacheControlleur);
