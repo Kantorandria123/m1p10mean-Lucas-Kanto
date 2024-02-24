@@ -64,8 +64,21 @@ const  deleteServiceById = async (serviceId) => {
     return { status: false, message: "Erreur lors de la suppression du service" };
   }
 }
+
+const getServiceById = async(serviceId) => {
+  try {
+    const services = await serviceModel.findById(serviceId);
+    if(!services) {
+      return { status: false, message: "Aucun service trouvé avec cet identifiant" };
+    }
+    return { status: true, message: "Service trouvé avec succès", services };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la recherche du service" };
+  }
+};
   
-  module.exports = { getListService,createService,updateServiceById,deleteServiceById};
+  module.exports = { getListService,createService,updateServiceById,deleteServiceById,getServiceById};
   
 
 

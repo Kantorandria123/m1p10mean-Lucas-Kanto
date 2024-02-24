@@ -31,6 +31,7 @@ router.route('/service/lesservices').get(serviceControlleur.getListServiceContro
 router.route('/service/creer').post(upload,serviceControlleur.creerServiceController);
 router.route('/service/serviceupdate/:serviceId').patch(serviceControlleur.updateServiceControllerFn);
 router.route('/service/supprimer/:id').delete(serviceControlleur.deleteServiceByIdControllerFn);
+router.route('/service/servicesId/:serviceId').get(serviceControlleur.serviceByIdControllerFn);
 
 /*employe*/ 
 router.route('/employe/create').post(employeControlleur.createemployeControllerFn);

@@ -63,5 +63,22 @@ const deleteServiceByIdControllerFn = async (req, res) => {
     res.status(500).send({ status: false, message: "Erreur lors de la suppression du service par ID" });
   }
 }
-  module.exports = { getListServiceControlleur,creerServiceController,updateServiceControllerFn,deleteServiceByIdControllerFn };
+
+const serviceByIdControllerFn = async (req, res) => {
+  try {
+    const serviceId = req.params.serviceId;
+    console.log("serviceId:" +serviceId);
+    const result = await serviceService.getServiceById(serviceId);
+
+    if(result.status) {
+      res.send({ status: true, message: result.message, services: result.services});
+    } else {
+      res.send({ status: false, message: result.message });
+    }
+  } catch(error) {
+    console.error(error);
+    res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des services par id" });
+  }
+}
+  module.exports = { getListServiceControlleur,creerServiceController,updateServiceControllerFn,deleteServiceByIdControllerFn,serviceByIdControllerFn };
   
