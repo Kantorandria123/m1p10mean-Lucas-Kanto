@@ -4,17 +4,15 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const routes = require('./routes/routes');
 const cors = require('cors');
+const path = require('path');
 
 app.use(cors({
   origin: "http://localhost:4200"
 }));
 
-const PORT = 3000;
-
-// Connect to MongoDB
+const PORT = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://salon_beaute_user:cEjuTZtOPCF3qVHi@cluster0.dne684n.mongodb.net/m1p10mean-lucas-kanto?retryWrites=true&w=majority');
 
-// Handling MongoDB connection events
 const db = mongoose.connection;
 db.on('error', (error) => {
     console.error('Error connecting to DB:', error);
@@ -22,12 +20,14 @@ db.on('error', (error) => {
 
 db.once('open', () => {
     console.log('Successfully connected to DB');
-    
-    // Start the server after successfully connecting to the database
     app.listen(PORT, () => {
         console.log('Server started on port '+PORT);
     });
 });
-app.use(express.static("frontend"));
+
 app.use(express.json());
 app.use(routes);
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
