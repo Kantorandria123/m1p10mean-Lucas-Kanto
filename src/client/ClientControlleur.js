@@ -1,11 +1,11 @@
-var ClientService = require('./ClientService');
+var clientService = require('./ClientService');
 
 var createClientControllerFn = async (req, res) => 
 {
     try
     {
     console.log(req.body);
-    var status = await ClientService.createClientDBService(req.body);
+    var status = await clientService.createClientDBService(req.body);
     console.log(status);
 
     if (status) {
@@ -22,7 +22,7 @@ catch(err)
 
 var loginUserControllerFn = async (req, res) => {
     try {
-        const result = await ClientService.loginUserDBService(req.body);
+        const result = await clientService.loginUserDBService(req.body);
         if (result.status) {
             res.send({ "status": true, "message": result.message, "client": result.client });
         } else {
@@ -36,7 +36,7 @@ var loginUserControllerFn = async (req, res) => {
 
 var getClientByTokenControlleur = async (req, res) => {
     try {
-        const result = await ClientService.getClientByToken(req.body);
+        const result = await clientService.getClientByToken(req.body);
         if (result.status) {
             res.send({ "status": true, "message": result.message, "client": result.client });
         } else {
@@ -50,7 +50,7 @@ var getClientByTokenControlleur = async (req, res) => {
 const updateArgentcontrollerFn = async (req, res) => {
     try {
       console.log("req.body "+req.body);
-      const result = await ClientService.updateArgentByClientId(req.body);
+      const result = await clientService.updateArgentByClientId(req.body);
   
       if (result.status) {
         res.send({ status: true, message: result.message, updateArgent: result.updateArgent });
@@ -63,5 +63,17 @@ const updateArgentcontrollerFn = async (req, res) => {
     }
   };
 
-
-module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn };
+const getlisteClientControllerFn = async (req, res) => {
+    try {
+        const result = await clientService.getListClient() ;
+        if (result.status) {
+            res.send({ status: true, message: result.message, clients: result.clients });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.send({ status: false, message: "Erreur lors de la récupération de la liste des clients" });
+      }
+}
+module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn,getlisteClientControllerFn };

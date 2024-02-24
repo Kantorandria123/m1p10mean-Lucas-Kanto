@@ -127,6 +127,15 @@ module.exports.loginUserDBService = (clientDetails) => {
   }
 };
 
+module.exports.getListClient = async () => {
+  try {
+    const clients = await clientModel.find({});
+    return { status: true, message: "Liste des clients récupérée avec succès", clients }
+  } catch(error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la récupération de la liste des clients" };
+  }
+};
 
 function getCurrentDateTime() {
    const currentDateTime = new Date();
