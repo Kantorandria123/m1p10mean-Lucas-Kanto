@@ -31,6 +31,20 @@ const creerOffrespecialControlleur = async (req, res) => {
     }
 };
 
+const getOffrespecialListControllerFn = async (req, res) => {
+    try {
+        const result = await OffrespecialeService.getOffrespecial();
+        if (result.status) {
+            res.send({ status: true, message: result.message, offrespeciales: result.offrespeciales });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.send({ status: false, message: "Erreur lors de la récupération de la liste des offres spéciales" });
+      }
+};
+
 module.exports = {
-    listeOffrespecialControlleur,creerOffrespecialControlleur
+    listeOffrespecialControlleur,creerOffrespecialControlleur,getOffrespecialListControllerFn
 }

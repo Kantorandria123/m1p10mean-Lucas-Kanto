@@ -78,6 +78,15 @@ const creerOffrespecial = (offrespecial) => {
     });
 }
 
+const getOffrespecial = async () => {
+  try {
+    const offrespeciales = await OffrespecialeModel.find({});
+    return { status: true, message: "Liste des offres spéciales récupérée avec succès", offrespeciales };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la récupération de la liste des offres spéciales" };
+  }
+};
 module.exports = {
-    getListOffrespecial,creerOffrespecial
+    getListOffrespecial,creerOffrespecial,getOffrespecial
 }
