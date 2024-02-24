@@ -87,6 +87,19 @@ const getOffrespecial = async () => {
     return { status: false, message: "Erreur lors de la récupération de la liste des offres spéciales" };
   }
 };
+
+const deletedOffrespecialById = async (offrespecialId) => {
+  try {
+    const deletedOffrespecial = await OffrespecialeModel.findByIdAndDelete(offrespecialId);
+    if(!deletedOffrespecial) {
+      return { status: false, message: "Aucun offre spéciale trouvé avec cet identifiant pour la suppression" };
+    }
+    return { status: true, message: "Employé supprimé avec succès", deletedOffrespecial };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la suppression de l'offre spéciale" };
+  }
+}
 module.exports = {
-    getListOffrespecial,creerOffrespecial,getOffrespecial
+    getListOffrespecial,creerOffrespecial,getOffrespecial,deletedOffrespecialById
 }

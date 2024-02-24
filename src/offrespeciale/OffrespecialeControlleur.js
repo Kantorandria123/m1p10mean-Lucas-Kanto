@@ -45,6 +45,22 @@ const getOffrespecialListControllerFn = async (req, res) => {
       }
 };
 
+const deleteOffrespecialByIdControllerFn = async (req, res) => {
+    try {
+        const offrespecialId = req.params.id;
+        const result = await OffrespecialeService.deletedOffrespecialById(offrespecialId);
+
+        if (result.status) {
+            res.send({ status: true, message: result.message, deletedOffrespecial: result.deletedOffrespecial });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: false, message: "Erreur lors de la suppression de l'offre spéciale par ID" });
+      }
+};
+
 module.exports = {
-    listeOffrespecialControlleur,creerOffrespecialControlleur,getOffrespecialListControllerFn
+    listeOffrespecialControlleur,creerOffrespecialControlleur,getOffrespecialListControllerFn,deleteOffrespecialByIdControllerFn
 }

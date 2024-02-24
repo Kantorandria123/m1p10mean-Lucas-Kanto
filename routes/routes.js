@@ -53,6 +53,7 @@ router.route('/rendezvous/modifieretat/:id/:etat').get(rendezvousControlleur.upd
 router.route('/offrespecial/creer').post(offrespecialControlleur.creerOffrespecialControlleur);
 router.route('/offrespecial/lesoffrespecial').get(offrespecialControlleur.listeOffrespecialControlleur);
 router.route('/offrespecial/listeoffrespecial').get(offrespecialControlleur.getOffrespecialListControllerFn);
+router.route('/offrespecial/supprimer/:id').delete(offrespecialControlleur.deleteOffrespecialByIdControllerFn);
 
 /*preference_service*/
 router.route('/preference/service/creer').post(preferenceServoceControlleur.createPreferenceControllerFn);
