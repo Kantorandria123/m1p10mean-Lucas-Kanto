@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const depotSchema = new mongoose.Schema({
     montant: {
-        type: String,
+        type: Number,
         required: true,
     },
     client_id: {
