@@ -61,7 +61,6 @@ const employeeByTokenControlleur = async (req, res) => {
 const employeeByIdControllerFn = async (req, res) => {
   try {
     const employeeId = req.params.employeeId;
-    console.log("employeeId: " +employeeId);
    const result = await employeService.getEmployeeById(employeeId);
    if (result.status) {
     res.send({ status: true, message: result.message, employes: result.employes });
@@ -77,7 +76,7 @@ const employeeByIdControllerFn = async (req, res) => {
 const updateEmployeeByIdControllerFn = async (req, res) => {
   try {
     const employeeId = req.params.employeeId;
-    const newData = req.body; // Supposons que les nouvelles données sont envoyées dans le corps de la requête
+    const newData = req.body; 
 
     const result = await employeService.updateEmployeeById(employeeId, newData);
     if (result.status) {

@@ -18,7 +18,6 @@ const getListServiceControlleur = async (req, res) => {
     try {
       console.log(req.body);
       var result = await serviceService.createService(req.body, req); // Pass req as a parameter
-      console.log(result);
       if (result) {
         res.send({ "status": true, "message": "Service créé avec succès", "id": result._id });
       } else {
