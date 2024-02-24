@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const routes = require('./routes/routes');
 const cors = require('cors');
-
+const Notification = require('./src/email/Notification'); 
 app.use(cors({
   origin: "http://localhost:4200"
 }));
@@ -31,3 +31,4 @@ db.once('open', () => {
 app.use(express.static("frontend"));
 app.use(express.json());
 app.use(routes);
+Notification.scheduleEmail();
