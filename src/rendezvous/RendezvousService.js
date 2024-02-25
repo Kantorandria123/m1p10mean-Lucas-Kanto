@@ -522,5 +522,5 @@ const getRendezvousClientsNotifier = async () => {
   }
 };
 module.exports = {
-  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById,historiqueRendezvousByClient,getRendezvousClientsNotifier
+  getListRendezvous,creerRendezVous,listeRendezvousByClient,listeRendezvousNotifier,listeRendezvousByEmployee,updateEtatRendezVousById,historiqueRendezvousByClient,getRendezvousClientsNotifier,nombreResevationParjour,nombreResevationParmois
 };
