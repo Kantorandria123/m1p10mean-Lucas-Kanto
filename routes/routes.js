@@ -23,6 +23,7 @@ router.route('/client/login').post(clientController.loginUserControllerFn);
 router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
+router.route('/client/clientbyId/:clientId').get(clientController.clientByIdControllerFn);
 
 router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')));
 

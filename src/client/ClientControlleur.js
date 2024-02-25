@@ -63,5 +63,19 @@ const updateArgentcontrollerFn = async (req, res) => {
     }
   };
 
+  const clientByIdControllerFn = async (req, res) => {
+    try {
+        const clientId = req.params.clientId;
+        const result = await clientService.getClientById(clientId);
+        if (result.status) {
+            res.send({ status: true, message: result.message, clients: result.clients });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: false, message: "Erreur lors de la récupération de la liste des clients par id" });
+      }
+}
 
-module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn };
+module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn,clientByIdControllerFn };

@@ -127,6 +127,19 @@ module.exports.loginUserDBService = (clientDetails) => {
   }
 };
 
+module.exports.getClientById = async (clientId) => {
+  try {
+    const clients = await clientModel.findById(clientId);
+    if(!clients) {
+      return { status: false, message: "Aucun client trouvé avec cet identifiant" };
+    }
+    return { status: true, message: "Client trouvé avec succès", clients };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la recherche du client" };
+  }
+};
+
 
 function getCurrentDateTime() {
    const currentDateTime = new Date();
