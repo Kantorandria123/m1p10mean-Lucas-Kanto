@@ -1,5 +1,5 @@
 var serviceModel = require('./ServiceModel');
-
+const baseUrl="https://m1p10mean-lucas-kanto.onrender.com";
 const getListService = async () => {
     try {
       const services = await serviceModel.find({});
@@ -20,7 +20,7 @@ const getListService = async () => {
       serviceData.commission = services.commission;
   
       if (req.file) {
-        serviceData.image = req.protocol + '://' + req.get('host') + '/uploads/images/' + req.file.filename; 
+        serviceData.image = baseUrl + '/uploads/images/' + req.file.filename; 
     }
   
       serviceData.save()
