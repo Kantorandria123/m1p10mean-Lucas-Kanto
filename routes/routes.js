@@ -1,5 +1,7 @@
 var express = require('express');
 
+
+const path = require('path');
 const router = express.Router();
 
 var clientController = require('../src/client/ClientControlleur');
@@ -22,6 +24,7 @@ router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 
+router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')));
 
 /*manager*/
 router.route('/manager/login').post(managerControlleur.loginManagerControllerFn);
