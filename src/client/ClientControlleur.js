@@ -66,7 +66,7 @@ const updateArgentcontrollerFn = async (req, res) => {
   const clientByIdControllerFn = async (req, res) => {
     try {
         const clientId = req.params.clientId;
-        const result = await clientService.getClientById(clientId);
+        const result = await ClientService.getClientById(clientId);
         if (result.status) {
             res.send({ status: true, message: result.message, clients: result.clients });
         } else {
