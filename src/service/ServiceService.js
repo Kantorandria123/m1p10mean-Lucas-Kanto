@@ -20,7 +20,7 @@ const getListService = async () => {
       serviceData.commission = services.commission;
   
       if (req.file) {
-        serviceData.image = baseUrl + '/uploads/images/' + req.file.filename; 
+        serviceData.image = req.protocol + '://' + req.get('host')  + '/uploads/images/' + req.file.filename; 
     }
   
       serviceData.save()
