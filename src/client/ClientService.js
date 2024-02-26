@@ -80,22 +80,25 @@ module.exports.loginUserDBService = (clientDetails) => {
  }
  
  module.exports.getClientByToken = (clientDetails) => {
-   return new Promise((resolve, reject) => {
-     clientModel.findOne({ email: clientDetails.email,token:clientDetails.token})
-       .then(result => {
-         resolve({
+  return new Promise((resolve, reject) => {
+    clientModel.findOne({ email: clientDetails.email, token: clientDetails.token })
+      .then(result => {
+        if (result) {
+          resolve({
             status: true,
-            message: "client trouver!",
+            message: "Client trouvé!",
             client: result
           });
-       })
+        } else {
+          reject({ status: false, message: "Aucun client trouvé avec ces détails" });
+        }
+      })
+      .catch(error => {
+        reject({ status: false, message: "Une erreur s'est produite lors de la recherche du client" });
+      });
+  });
+}
 
-       .catch(error => {
-         reject({ status: false, message: "Données invalides" });
-       });
-   });
- }
- 
  module.exports.updateArgentByClientId = async (clientDetails) => {
   try {
     const id = clientDetails._id;
