@@ -78,7 +78,7 @@ const updateEmployeeByIdControllerFn = async (req, res) => {
     const employeeId = req.params.employeeId;
     const newData = req.body; 
 
-    const result = await employeService.updateEmployeeById(employeeId, newData);
+    const result = await employeService.updateEmployeeById(employeeId, newData,req);
     if (result.status) {
       res.send({ status: true, message: result.message, updatedEmployee: result.updatedEmployee });
     } else {

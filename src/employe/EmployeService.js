@@ -121,9 +121,20 @@ const getEmployeeById = async (employeeId) => {
   }
 };
 
-const updateEmployeeById = async (employeeId, updateData) => {
+const updateEmployeeById = async (employeeId, employe,req) => {
   try {
-    const updatedEmployee = await employeModel.findByIdAndUpdate(employeeId, updateData, { new: true });
+  
+
+   const newData = {
+    nom: employe.nom,
+    email: employe.email
+  };
+  if (req.file) {
+    const image = req.protocol + '://' + req.get('host')  + '/uploads/images/' + req.file.filename;
+    newData.image = image;
+  }
+  console.log("newData : "+newData);
+    const updatedEmployee = await employeModel.findByIdAndUpdate(employeeId, newData, { new: true });
     if (!updatedEmployee) {
       return { status: false, message: "Aucun employé trouvé avec cet identifiant pour la mise à jour" };
     }

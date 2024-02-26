@@ -39,7 +39,7 @@ router.route('/employe/lesEmployes').get(employeControlleur.getlisteEmployeContr
 router.route('/employe/login').post(employeControlleur.loginEmployeeControllerFn);
 router.route('/employe/employebytoken').post(employeControlleur.employeeByTokenControlleur);
 router.route('/employe/employebyId/:employeeId').get(employeControlleur.employeeByIdControllerFn);
-router.route('/employe/employeupdate/:employeeId').patch(employeControlleur.updateEmployeeByIdControllerFn);
+router.route('/employe/employeupdate/:employeeId').post(upload,employeControlleur.updateEmployeeByIdControllerFn);
 router.route('/employe/supprimer/:id').delete(employeControlleur.deleteEmployeeByIdControllerFn);
 router.route('/employe/tempsmoyentravail').get(employeControlleur.getTempsMoyenTravailEmployesControllerFn);
 
