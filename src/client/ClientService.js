@@ -140,7 +140,19 @@ module.exports.getClientById = async (clientId) => {
   }
 };
 
-
+module.exports.updateClientById = async (clientId, updateData) => {
+  try {
+    const updatedClient = await clientModel.findByIdAndUpdate(clientId, updateData, { new: true });
+    if(!updatedClient) {
+      return { status: false, message: "Aucun client trouvé avec cet identifiant pour la mise à jour" };
+    }
+    return { status: true, message: "Client mis à jour avec succès", updatedClient };
+  } catch (error) {
+    console.error(error);
+    return { status: false, message: "Erreur lors de la mise à jour du client" };
+  }
+};
+ 
 function getCurrentDateTime() {
    const currentDateTime = new Date();
    const date = currentDateTime.toISOString().split('T')[0];

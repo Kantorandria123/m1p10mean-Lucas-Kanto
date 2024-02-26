@@ -78,4 +78,21 @@ const updateArgentcontrollerFn = async (req, res) => {
       }
 }
 
-module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn,clientByIdControllerFn };
+
+const updateClientByIdControllerFn = async (req, res) => {
+    try {
+        const clientId = req.params.clientId;
+        const newData = req.body;
+
+        const result = await ClientService.updateClientById(clientId, newData);
+        if (result.status) {
+            res.send({ status: true, message: result.message, updatedClient: result.updatedClient });
+        } else {
+            res.send({ status: false, message: result.message });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: false, message: "Erreur lors de la mise à jour du client par ID" });
+    }
+}
+module.exports = { createClientControllerFn,loginUserControllerFn,getClientByTokenControlleur,updateArgentcontrollerFn,clientByIdControllerFn,updateClientByIdControllerFn };

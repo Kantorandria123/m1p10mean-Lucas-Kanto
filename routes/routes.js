@@ -24,6 +24,7 @@ router.route('/client/create').post(clientController.createClientControllerFn);
 router.route('/client/getbytoken').post(clientController.getClientByTokenControlleur);
 router.route('/client/updateargent').post(clientController.updateArgentcontrollerFn);
 router.route('/client/clientbyId/:clientId').get(clientController.clientByIdControllerFn);
+router.route('/client/clientupdate/:clientId').patch(clientController.updateClientByIdControllerFn);
 
 router.use('/uploads/images', express.static(path.join(__dirname, '../uploads/images')));
 
