@@ -35,7 +35,7 @@ const updateServiceControllerFn = async (req, res) => {
     const serviceId = req.params.serviceId;
     const newData = req.body;
 
-    const result = await serviceService.updateServiceById(serviceId, newData);
+    const result = await serviceService.updateServiceById(serviceId, newData,req);
     if (result.status) {
       res.send({status: true, message: result.message,updateService: result.updateService});
     } else {

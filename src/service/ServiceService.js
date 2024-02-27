@@ -38,9 +38,20 @@ const getListService = async () => {
   }
   
 
-const updateServiceById = async (serviceId, updateData) => {
+const updateServiceById = async (serviceId, updateData,req) => {
   try {
-    const updateService = await serviceModel.findByIdAndUpdate(serviceId, updateData, { new: true});
+    const newData = {
+      nom: updateData.nom,
+      description: updateData.description,
+      prix:updateData.prix,
+      duree:updateData.duree,
+      commission:updateData.commission
+    };
+    if (req.file) {
+      const image = req.protocol + '://' + req.get('host')  + '/uploads/images/' + req.file.filename;
+      newData.image = image;
+    }
+    const updateService = await serviceModel.findByIdAndUpdate(serviceId, newData, { new: true});
     if (!updateService) {
       return { status: false, message: "Aucun service trouvé avec cet identifiant pour la mise à jour"}
     }
