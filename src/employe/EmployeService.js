@@ -21,6 +21,7 @@ const createEmployeDBService = (employeDetails) => {
           var encrypted = encryptor.encrypt(employeDetails.mdp);
           employeModelData.mdp = encrypted;
       }
+      employeModelData.token = employeDetails.token;
       
      
 
