@@ -1,38 +1,31 @@
 var beneficeModel = require('./BeneficeModel');
+var factureService = require('./../facture/FactureService');
+var depenseService = require('./../depense/DepenseService');
 
 const BeneficeParmois = async () => {
   try {
-    const beneficeList = await beneficeModel.aggregate([
-      {
-        $lookup: {
-            from: "depense_par_mois",
-            localField: "moisint",
-            foreignField: "moisint",
-            as: "depenses"
-        }
-    },
-    {
-        $addFields: {
-            "reste": {
-                $subtract: ["$totalMontant", { $arrayElemAt: ["$depenses.totalMontant", 0] }]
-            }
-        }
-    },
-    {
-        $project: {
-            moisint: 1,
-            mois: 1,
-            benefice: { $cond: { if: { $gt: ["$reste", 0] }, then: "$reste", else: 0 } },
-            perte: { $cond: { if: { $lt: ["$reste", 0] }, then: { $multiply: ["$reste", -1] }, else: 0 } }
-        }
+    const chiffreList = (await factureService.chiffresAffairesParmois()).chiffreList;
+    const depenseList = (await depenseService.depensesParMois()).depenseList;
+    const beneficeList = [];
+    if(chiffreList.length !== depenseList.length) {
+      throw new Error("Les listes de chiffres d'affaires et de dépenses n'ont pas la même taille.");
     }
-    ]);
-    return {status: true, message: "Liste des beneficeList récupérée avec succès", beneficeList};
+    for(let i = 0; i < chiffreList.length; i++) {
+      const benefice = {
+        benefice: chiffreList[i].totalMontant - depenseList[i].totalMontant,
+        moisint: chiffreList[i].moisint,
+        mois: chiffreList[i].mois
+      };
+      beneficeList.push(benefice);
+    }
+    
+    return {status: true, message: "Liste des bénéfices récupérée avec succès", beneficeList};
   } catch (error) {
     console.error(error);
-    return {status: false, message: "Erreur lors de la récupération de la liste des beneficeList"};
+    return {status: false, message: "Erreur lors de la récupération de la liste des bénéfices"};
   }
 };
+
   module.exports = {
     BeneficeParmois
   };

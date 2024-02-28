@@ -1,0 +1,7 @@
+db.rendezvous.deleteMany({});
+db.paiements.deleteMany({});
+db.factures.deleteMany({});
+db.preference_employes.deleteMany({});
+db.preference_services.deleteMany({});
+db.taches.deleteMany({});
+db.depots.deleteMany({});
