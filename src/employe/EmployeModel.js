@@ -39,7 +39,11 @@ const employeSchema = new mongoose.Schema({
   nbJourTravailMois: {
     type: Number, 
     required: false,
-  }
+  },
+  salaire: {
+    type: Number,
+    required: false
+  },
 });
 
 const EmployeModel = mongoose.model('Employe', employeSchema);

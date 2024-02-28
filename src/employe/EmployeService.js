@@ -15,6 +15,7 @@ const createEmployeDBService = (employeDetails) => {
       employeModelData.heureFin = employeDetails.heureFin;
       employeModelData.nbJourTravailSemaine = employeDetails.nbJourTravailSemaine;
       employeModelData.nbJourTravailMois = employeDetails.nbJourTravailMois;
+      employeModelData.salaire = employeDetails.salaire;
       employeModelData.image = employeDetails.image;
       if (employeDetails.mdp !== undefined && employeDetails.mdp !== null) {
           var encrypted = encryptor.encrypt(employeDetails.mdp);
