@@ -431,10 +431,10 @@ const nombreResevationParmois = async () => {
 const getRendezvousClientsNotifier = async () => {
   try {
     const currentDate = new Date();
-
+    currentDate.setDate(currentDate.getDate() + 1); 
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
-    const day = String(currentDate.getDate()+1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()).padStart(2, '0'); 
     const datyNotification = `${year}-${month}-${day}`;
     console.log("daty notif : "+datyNotification);
     const rendezvousList = await RendezvousModel.aggregate([

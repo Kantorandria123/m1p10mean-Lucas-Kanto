@@ -117,7 +117,7 @@ class Notification {
         schedule.scheduleJob('00 06 * * *',async function() {
             console.log('Préparation de l\'envoi de l\'email...');
             const result=await Notification.getAnotifier();
-            if (result.status && result.rendezvousList) {
+            if (result.rendezvousList.length>0) {
                 result.rendezvousList.forEach(clientRdv => {
                     const email = clientRdv._id.email;
                     const daty = clientRdv._id.daty;
